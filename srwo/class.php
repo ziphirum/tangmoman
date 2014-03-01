@@ -6,17 +6,13 @@
 		private $win;
 		private $lose;
 		private $draw;
-		private $charId;
-		private $townId;
 		
 		function __construct($userid){
 			$conn = openConn();
 			$sql  = "SELECT id,username,name,win,lose,draw,char_id,town_id ";
 			$sql .= "from tm_useraccount ";
 			$sql .= "where id=".$userid;
-			
-			echo $sql;
-			
+						
 			$rs = mysqli_query($conn,$sql);
 
 			while($row = mysqli_fetch_array($rs)){
@@ -25,9 +21,7 @@
 				$this->setName($row['name']);
 				$this->setWin($row['win']);
 				$this->setLose($row['lose']);
-				$this->setDraw($row['draw']);
-				$this->setCharId($row['char_id']);
-				$this->setTownId($row['town_id']);			
+				$this->setDraw($row['draw']);			
 			}
 
 			closeConn($conn);
@@ -80,21 +74,56 @@
 		function getDraw(){
 			return $this->draw;
 		}
+
+	}
+	
+	class Character{
+		private $id;
+		private $name;
+		private $characterDataName;
 		
-		function setCharId($str){
-			$this->charId = $str;
+		function __construct($userid){
+			$conn = openConn();
+			$sql  = "SELECT c.id,c.name,";
+			$sql .= "cd.name as character_data_name ";
+			$sql .= "from tm_character c ";
+			$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
+			$sql .= "where c.user_id=".$userid;
+						
+			$rs = mysqli_query($conn,$sql);
+
+			while($row = mysqli_fetch_array($rs)){
+				$this->setId($row['id']);
+				$this->setName($row['name']);
+				$this->setCharacterDataName($row['character_data_name']);			
+			}
+
+			closeConn($conn);
 		}
 		
-		function getCharId(){
-			return $this->charId;
+		function setId($str){
+			$this->id = $str;
 		}
 		
-		function setTownId($str){
-			$this->townId = $str;
+		function getId(){
+			return $this->id;
 		}
 		
-		function getTownId(){
-			return $this->townId;
+		function setName($str){
+			$this->name = $str;
 		}
+		
+		function getName(){
+			return $this->name;
+		}
+		
+		function setCharacterDataName($str){
+			$this->characterDataName = $str;
+		}
+		
+		function getCharacterDataName(){
+			return $this->characterDataName;
+		}
+		
 	}
 ?>
