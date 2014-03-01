@@ -11,11 +11,11 @@
 		
 		function __construct($userid){
 			$conn = openConn();
-			$cmd  = "SELECT id,username,name,win,lose,draw,char_id,town_id ";
-			$cmd .= "from tm_useraccount ";
-			$cmd .= "where id=".$userid;
+			$sql  = "SELECT id,username,name,win,lose,draw,char_id,town_id ";
+			$sql .= "from tm_useraccount ";
+			$sql .= "where id=".$userid;
 			
-			$rs = mysqli_query($conn,$cmd);
+			$rs = mysqli_query($conn,$sql);
 
 			while($row = mysqli_fetch_array($rs)){
 				$this->setId($row['id']);
