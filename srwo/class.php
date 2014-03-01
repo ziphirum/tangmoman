@@ -13,7 +13,7 @@
 			$conn = openConn();
 			$cmd  = "SELECT id,username,name,win,lose,draw,char_id,town_id ";
 			$cmd .= "from tm_useraccount ";
-			$cmd .= "where id=".$usreid;
+			$cmd .= "where id=".$userid;
 			
 			$rs = mysqli_query($conn,$cmd);
 
