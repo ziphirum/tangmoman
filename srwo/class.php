@@ -15,6 +15,8 @@
 			$sql .= "from tm_useraccount ";
 			$sql .= "where id=".$userid;
 			
+			echo $sql;
+			
 			$rs = mysqli_query($conn,$sql);
 
 			while($row = mysqli_fetch_array($rs)){
