@@ -25,8 +25,8 @@ CREATE TABLE tm_useraccount (
 	 win INT,
 	 lost INT,
 	 draw INT,
-	 char_id INT NOT NULL,
-     town_id INT NOT NULL,
+	 char_id INT,
+     town_id INT,
      PRIMARY KEY (id)
 );
 
