@@ -9,18 +9,8 @@
 		private $charId;
 		private $townId;
 		
-		function __construct(){
-			$this->setId("");
-			$this->setUsername("a");
-			$this->setName("a");
-			$this->setWin("a");
-			$this->setLose("a");
-			$this->setDraw("a");
-			$this->setCharId("a");
-			$this->setTownId("a");	
-		}
 		
-		function __construct1($userid){
+		function __construct($userid){
 			$conn = openConn();
 			$cmd  = "SELECT id,username,name,win,lose,draw,char_id,town_id ";
 			$cmd .= "from tm_useraccount ";
