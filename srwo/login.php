@@ -12,8 +12,6 @@
 		$userId;
 		while($row = mysqli_fetch_array($result)){
 			$userId = $row['id'];
-			echo $row['id'] . " " .$row['username'] . " " . $row['name'];
-			echo "<br>";
 		}
 		closeConn($conn);
 		return $userId;
@@ -24,6 +22,9 @@
 	echo $userId;
 	echo "<br>";
 	$user = new UserAccount($userId);
+	$char = new Character($userId);
 
 	echo $user->getName();
+	echo $char->getCharacterDataName();
+
 ?>
