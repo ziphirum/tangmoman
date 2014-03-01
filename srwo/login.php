@@ -1,8 +1,8 @@
 <?php
 	include 'database.php';
 	include 'common.php';
+	include 'class.php';
 	
-
 
 	function login($username) {
 		$conn = openConn();
@@ -13,11 +13,14 @@
 			echo $row['id'] . " " .$row['username'] . " " . $row['name'];
 			echo "<br>";
 		}
-
 		closeConn($conn);
+		return $row['id'];
 	}
 
 	$userLoggedOn = $_GET['username'];
-	login($userLoggedOn);
+	$userId = login($userLoggedOn);
+	$user = new UserAccount($userId);
+
+	echo $user->getName();
 
 ?>
