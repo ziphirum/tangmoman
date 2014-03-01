@@ -43,67 +43,67 @@
 		}
 		
 		function setId($str){
-			$this->$id = $str;
+			$this->id = $str;
 		}
 		
 		function getId(){
-			return $this->$id;
+			return $this->id;
 		}
 		
 		function setUsername($str){
-			$this->$username = $str;
+			$this->username = $str;
 		}
 		
 		function getUsername(){
-			return $this->$username;
+			return $this->username;
 		}
 		
 		function setName($str){
-			$this->$name = $str;
+			$this->name = $str;
 		}
 		
 		function getName(){
-			return $this->$name;
+			return $this->name;
 		}
 		
 		function setWin($str){
-			$this->$win = $str;
+			$this->win = $str;
 		}
 		
 		function getWin(){
-			return $this->$win;
+			return $this->win;
 		}
 		
 		function setLose($str){
-			$this->$lose = $str;
+			$this->lose = $str;
 		}
 		
 		function getLose(){
-			return $this->$lose;
+			return $this->lose;
 		}
 		
 		function setDraw($str){
-			$this->$draw = $str;
+			$this->draw = $str;
 		}
 		
 		function getDraw(){
-			return $this->$draw;
+			return $this->draw;
 		}
 		
 		function setCharId($str){
-			$this->$charId = $str;
+			$this->charId = $str;
 		}
 		
 		function getCharId(){
-			return $this->$charId;
+			return $this->charId;
 		}
 		
 		function setTownId($str){
-			$this->$townId = $str;
+			$this->townId = $str;
 		}
 		
 		function getTownId(){
-			return $this->$townId;
+			return $this->townId;
 		}
 	}
 ?>
