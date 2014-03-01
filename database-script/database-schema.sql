@@ -23,7 +23,7 @@ CREATE TABLE tm_useraccount (
 	 password CHAR(100) NOT NULL,
 	 name CHAR(100) NOT NULL,
 	 win INT,
-	 lost INT,
+	 lose INT,
 	 draw INT,
 	 char_id INT,
      town_id INT,

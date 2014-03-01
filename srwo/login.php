@@ -26,5 +26,4 @@
 	$user = new UserAccount($userId);
 
 	echo $user->getName();
-
 ?>
