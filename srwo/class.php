@@ -13,8 +13,6 @@
 			$sql .= "from tm_useraccount ";
 			$sql .= "where id=".$userid;
 			
-			echo $sql;
-						
 			$rs = mysqli_query($conn,$sql);
 
 			while($row = mysqli_fetch_array($rs)){
@@ -90,7 +88,7 @@
 			$sql .= "cd.name as character_data_name ";
 			$sql .= "from tm_character c ";
 			$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
-			$sql .= "where c.user_id=".$userid;
+			$sql .= "where c.useraccount_id=".$userid;
 						
 			$rs = mysqli_query($conn,$sql);
 
