@@ -15,7 +15,7 @@
 			$cmd .= "from tm_useraccount ";
 			$cmd .= "where id=".$usreid;
 			
-			$rs = mysqli_query($con,"SELECT * FROM Persons");
+			$rs = mysqli_query($conn,$cmd);
 
 			while($row = mysqli_fetch_array($rs)){
 				$this->setId($row['id']);
