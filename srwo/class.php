@@ -12,6 +12,8 @@
 			$sql  = "SELECT id,username,name,win,lose,draw ";
 			$sql .= "from tm_useraccount ";
 			$sql .= "where id=".$userid;
+			
+			echo $sql;
 						
 			$rs = mysqli_query($conn,$sql);
 
