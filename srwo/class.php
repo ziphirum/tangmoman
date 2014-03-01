@@ -20,7 +20,7 @@
 			setTownId("");	
 		}
 		
-		function __construct($userid){
+		function __construct1($userid){
 			$conn = openConn();
 			$cmd  = "SELECT id,username,name,win,lose,draw,char_id,town_id ";
 			$cmd .= "from tm_useraccount ";
