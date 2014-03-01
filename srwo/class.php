@@ -10,14 +10,14 @@
 		private $townId;
 		
 		function __construct(){
-			setId("");
-			setUsername("");
-			setName("");
-			setWin("");
-			setLose("");
-			setDraw("");
-			setCharId("");
-			setTownId("");	
+			$this->setId("");
+			$this->setUsername("a");
+			$this->setName("a");
+			$this->setWin("a");
+			$this->setLose("a");
+			$this->setDraw("a");
+			$this->setCharId("a");
+			$this->setTownId("a");	
 		}
 		
 		function __construct1($userid){
@@ -29,14 +29,14 @@
 			$rs = mysqli_query($con,"SELECT * FROM Persons");
 
 			while($row = mysqli_fetch_array($rs)){
-				setId($row['id']);
-				setUsername($row['username']);
-				setName($row['name']);
-				setWin($row['win']);
-				setLose($row['lose']);
-				setDraw($row['draw']);
-				setCharId($row['char_id']);
-				setTownId($row['town_id']);			
+				$this->setId($row['id']);
+				$this->setUsername($row['username']);
+				$this->setName($row['name']);
+				$this->setWin($row['win']);
+				$this->setLose($row['lose']);
+				$this->setDraw($row['draw']);
+				$this->setCharId($row['char_id']);
+				$this->setTownId($row['town_id']);			
 			}
 
 			closeConn($conn);
