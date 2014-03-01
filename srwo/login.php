@@ -19,12 +19,14 @@
 
 	$userLoggedOn = $_GET['username'];
 	$userId = login($userLoggedOn);
-	echo $userId;
-	echo "<br>";
+	//echo $userId;
+	//echo "<br>";
 	$user = new UserAccount($userId);
 	$char = new Character($userId);
 
-	echo $user->getName();
-	echo $char->getCharacterDataName();
+	classToJson($user);
+
+	//echo $user->getName();
+	//echo $char->getCharacterDataName();
 
 ?>
