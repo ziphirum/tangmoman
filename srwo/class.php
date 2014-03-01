@@ -9,7 +9,6 @@
 		private $charId;
 		private $townId;
 		
-		
 		function __construct($userid){
 			$conn = openConn();
 			$cmd  = "SELECT id,username,name,win,lose,draw,char_id,town_id ";
