@@ -21,7 +21,7 @@
 		}
 		
 		function __construct($userid){
-			$conn = dbConnection();
+			$conn = openConn();
 			$cmd  = "SELECT id,username,name,win,lose,draw,char_id,town_id ";
 			$cmd .= "from tm_useraccount ";
 			$cmd .= "where id=".$usreid;
@@ -39,7 +39,7 @@
 				setTownId($row['town_id']);			
 			}
 
-			closeConnection($conn);
+			closeConn($conn);
 		}
 		
 		function setId($str){
