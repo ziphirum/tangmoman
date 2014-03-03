@@ -27,6 +27,11 @@
 			closeConn($conn);
 		}
 		
+		function getObjectVars(){
+			get_object_vars($this);
+		}
+		
+		
 		function setId($str){
 			$this->id = $str;
 		}
