@@ -6,7 +6,7 @@
 
 	function classToJson($obj){
 		$obj_vars = $obj->getObjectVars();
-
-		echo json_encode($obj_vars);
+		// echo json_encode($obj_vars);
+		return json_encode($obj_vars);
 	}
 ?>

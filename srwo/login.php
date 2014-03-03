@@ -24,9 +24,10 @@
 	$user = new UserAccount($userId);
 	$char = new Character($userId);
 
-	classToJson($user);
-
-	//echo $user->getName();
-	//echo $char->getCharacterDataName();
+	echo classToJson($user);
+	// echo "<br>";
+	// echo $user->getName();
+	// echo "<br>";
+	// echo $char->getCharacterDataName();
 
 ?>
