@@ -4,9 +4,13 @@
 		return "'".$str."'" ;
 	}
 
-	function classToJson($obj){
-		$obj_vars = $obj->getObjectVars();
-		// echo json_encode($obj_vars);
-		return json_encode($obj_vars);
+	function classToJson(){
+		$arr_obj_vars = array();
+		$args = func_get_args();
+		foreach ($args as $obj){
+			$obj_vars = $obj->getObjectVars();
+			$arr_obj_vars[] = $obj_vars;
+		}
+		return json_encode($arr_obj_vars);
 	}
 ?>
