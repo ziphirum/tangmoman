@@ -28,7 +28,7 @@
 		}
 		
 		function getObjectVars(){
-			get_object_vars($this);
+			return get_object_vars($this);
 		}
 		
 		
@@ -107,7 +107,7 @@
 		}
 		
 		function getObjectVars(){
-			get_object_vars($this);
+			return get_object_vars($this);
 		}
 		
 		function setId($str){
