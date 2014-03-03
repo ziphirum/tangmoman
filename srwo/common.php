@@ -9,7 +9,7 @@
 		$args = func_get_args();
 		foreach ($args as $obj){
 			$obj_vars = $obj->getObjectVars();
-			$arr_obj_vars[] = $obj_vars;
+			$arr_obj_vars[get_class($obj)] = $obj_vars;
 		}
 		return json_encode($arr_obj_vars);
 	}
