@@ -1,8 +1,8 @@
 <?php
 	
-	// $cmd = "D:/Github/tangmoman/pull.bat";
-	$cmd = "D: && CD D:/GitHub/tangmoman && git pull";
-	echo $cmd;
+	$cmd = "cd D:/GitHub/tangmoman && d: && git pull";
+	// echo $cmd;
+	// echo `whoami`; 
 	echo exec($cmd);
 
 ?>
