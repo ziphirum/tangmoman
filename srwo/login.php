@@ -6,28 +6,44 @@
 
 	function login($username) {
 		$conn = openConn();
-		$sql = "SELECT *  FROM tm_useraccount WHERE username= ".sqlStr($username);
+		$stmt = $conn->prepare("SELECT 1 FROM tm_useraccount WHERE username=?");
+		$stmt->bind_param('s', $username);
+		$stmt->execute();
 
-		$result = mysqli_query($conn, $sql);
-		$userId;
-		while($row = mysqli_fetch_array($result)){
-			$userId = $row['id'];
+		$stmt->store_result();
+		$stmt->bind_result($column);
+
+		$result = array ("status" => "ERROR");
+		while($stmt->fetch())
+		{
+		    if ($column === 1){
+		    	$result["status"] = "OK";
+		    }
 		}
+
+    	echo json_encode($result);
+    	
+		$stmt->close();
 		closeConn($conn);
-		return $userId;
+
+		// ##########################################################################
+
+		// $conn = openConn();
+		// $sql = "SELECT *  FROM tm_useraccount WHERE username= ".sqlStr($username);
+
+		// $result = mysqli_query($conn, $sql);
+		// $userId;
+		// while($row = mysqli_fetch_array($result)){
+		// 	$userId = $row['id'];
+		// }
+		// closeConn($conn);
+		// return $userId;
 	}
 
-	$userLoggedOn = $_GET['username'];
-	$userId = login($userLoggedOn);
-	//echo $userId;
-	//echo "<br>";
-	$user = new UserAccount($userId);
-	$char = new Character($userId);
+	$username = $_GET['username'];
+	$userId = login($username);
+	// $user = new UserAccount($userId);
+	// $char = new Character($userId);
 
-	echo classToJson($user, $char);
-	// echo "<br>";
-	// echo $user->getName();
-	// echo "<br>";
-	// echo $char->getCharacterDataName();
-
+	// echo classToJson($user, $char);
 ?>
