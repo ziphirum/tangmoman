@@ -1,5 +1,12 @@
 <?php
-	class UserAccount{
+	class TMClass{
+	
+		function getObjectVars(){
+			return get_object_vars($this);
+		}
+	}
+	
+	class UserAccount extends TMClass{
 		private $id;
 		private $username;
 		private $name;
@@ -26,12 +33,7 @@
 
 			closeConn($conn);
 		}
-		
-		function getObjectVars(){
-			return get_object_vars($this);
-		}
-		
-		
+				
 		function setId($str){
 			$this->id = $str;
 		}
@@ -82,7 +84,7 @@
 
 	}
 	
-	class Character{
+	class Character extends TMClass{
 		private $id;
 		private $name;
 		private $characterDataName;
@@ -104,10 +106,6 @@
 			}
 
 			closeConn($conn);
-		}
-		
-		function getObjectVars(){
-			return get_object_vars($this);
 		}
 		
 		function setId($str){
