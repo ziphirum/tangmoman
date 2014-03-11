@@ -21,7 +21,7 @@
 		    }
 		}
 
-    	echo json_encode($result);
+    	// echo json_encode($result);
     	
 		$stmt->close();
 		closeConn($conn);
@@ -37,13 +37,13 @@
 		// 	$userId = $row['id'];
 		// }
 		// closeConn($conn);
-		// return $userId;
+		return $userId;
 	}
 
 	$username = $_GET['username'];
 	$userId = login($username);
-	// $user = new UserAccount($userId);
-	// $char = new Character($userId);
+	$user = new UserAccount($userId);
+	$char = new Character($userId);
 
-	// echo classToJson($user, $char);
+	echo classToJson($user, $char);
 ?>
