@@ -7,12 +7,12 @@
 	}
 	
 	class UserAccount extends TMClass{
-		private $id;
-		private $username;
-		private $name;
-		private $win;
-		private $lose;
-		private $draw;
+		protected $id;
+		protected $username;
+		protected $name;
+		protected $win;
+		protected $lose;
+		protected $draw;
 		
 		function __construct($userid){
 			$conn = openConn();
@@ -85,9 +85,9 @@
 	}
 	
 	class Character extends TMClass{
-		private $id;
-		private $name;
-		private $characterDataName;
+		protected $id;
+		protected $name;
+		protected $characterDataName;
 		
 		function __construct($userid){
 			$conn = openConn();
