@@ -35,6 +35,7 @@
 		return json_encode($arr_obj_vars);
 	}
 	
-	$response = defenderList(1);
+	$userId = $_GET['id'];
+	$response = defenderList($userId);
 	echo $response;
 ?>
