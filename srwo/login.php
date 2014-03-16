@@ -21,11 +21,10 @@
 		    }
 		}
 
-    	echo json_encode($result);
-    	
 		$stmt->close();
 		closeConn($conn);
 
+		return $result;
 		// ##########################################################################
 
 		// $conn = openConn();
@@ -41,7 +40,9 @@
 	}
 
 	$username = $_GET['username'];
-	$userId = login($username);
+	$result = login($username);
+	echo json_encode($result);
+	
 	// $user = new UserAccount($userId);
 	// $char = new Character($userId);
 
