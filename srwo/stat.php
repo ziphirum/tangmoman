@@ -18,7 +18,6 @@
 	$user = new UserAccount($userId);
 	$char = new Character($userId);
 
-	// echo $userId;
 	echo classToJson($user, $char);
 
 ?>
