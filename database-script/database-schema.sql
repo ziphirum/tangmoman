@@ -15,6 +15,9 @@ CREATE TABLE tm_character (
      max_sp INT NOT NULL,
      character_data_id INT NOT NULL,
      useraccount_id INT NOT NULL,
+     win INT DEFAULT 0,
+     lose INT DEFAULT 0,
+     draw INT DEFAULT 0,
      PRIMARY KEY (id)
 );
 
@@ -30,9 +33,6 @@ CREATE TABLE tm_useraccount (
      username CHAR(100) NOT NULL,
      password CHAR(100) NOT NULL,
      name CHAR(100) NOT NULL,
-     win INT DEFAULT 0,
-     lose INT DEFAULT 0,
-     draw INT DEFAULT 0,
      PRIMARY KEY (id)
 );
 

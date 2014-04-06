@@ -261,11 +261,11 @@
 
 			$conn = openConn();
 			$sql = "INSERT INTO tm_battle_log(detail, turn, attacker_id, defender_id, time)";
-			$sql .= "VALUES(" . $detail .",".  $turn .",". $atkId .",". $defId .",". $time . ")";
-
+			$sql .= "VALUES(" . sqlStr($detail) .",".  sqlStr($turn) .",". sqlStr($atkId) .",". sqlStr($defId) .",". sqlStr($time) . ")";
+			echo $sql;
 			$rs = mysqli_query($conn, $sql);
 
-			closeConn($con);
+			closeConn($conn);
 
 		}
 	}
