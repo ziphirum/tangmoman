@@ -3,7 +3,7 @@
 	include 'database.php';
 	include 'class.php';
 
-	function defenderList($userid){
+	function townList($userid){
 		$conn = openConn();
 		$sql  = "select id ";
 		$sql .= "from tm_useraccount ";
@@ -31,13 +31,13 @@
 			
 		}
 		$arr_json_return = array();
-		$arr_json_return[DefenderList] = $arr_obj_vars;
-		$arr_json_return[status] = "OK";
+		$arr_json_return[TownList] = $arr_obj_vars;
+		$arr_json_return[Status] = "OK";
 		closeConn($conn);
 		return json_encode($arr_json_return);
 	}
 	
 	$userId = $_GET['id'];
-	$response = defenderList($userId);
+	$response = townList($userId);
 	echo $response;
 ?>
