@@ -1,12 +1,13 @@
 <?php
 	
-	include 'database.php';
-	include 'class.php';
-
+	include "database.php";
+	include "class.php";
+	include "common.php";
+	include "constants.php";
 
 	
-	$attackerid = $_GET['attacker'];
-	$defenderid = $_GET['defender'];
+	$attackerid = $_GET["attacker"];
+	$defenderid = $_GET["defender"];
 
 	function fight($attackerid, $defenderid){
 		// attacker -1 lose , 0 draw, 1 win
@@ -40,7 +41,7 @@
 				$defender->setHp(0);
 				break;
 			}
-			iif($defender->getHp()<=0){
+			if($defender->getHp()<=0){
 				$defender->setHp(0);
 				break;
 			}

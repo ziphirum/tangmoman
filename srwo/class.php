@@ -13,7 +13,7 @@
 		
 		function __construct($userid){
 			$conn = openConn();
-			$sql  = "SELECT id,username,name, ";
+			$sql  = "SELECT id,username,name ";
 			$sql .= "from tm_useraccount ";
 			$sql .= "where id=".$userid;
 			
