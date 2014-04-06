@@ -22,7 +22,7 @@
 		$attacker = new Character($attackerid);
 		$defender = new Character($defenderid);
 		
-		$detail = "";
+		$arr_detail = array();
 		$turn = 0;
 		
 		while(true){
@@ -30,11 +30,13 @@
 			if(isOdd($turn)){
 				$dmg = rand(100,500);
 				$defender->setHp($defender->getHp()-$dmg);
-				$detail .= $attacker->getName()." attack with ".$dmg." damage ".chr(13);
+				$detail = $attacker->getName()." attack with ".$dmg." damage ";
+				$arr_detail[] = $detail;
 			}else{
 				$dmg = rand(100,500);
 				$attacker->setHp($attacker->getHp()-$dmg);
-				$detail .= $defender->getName()." attack with ".$dmg." damage ".chr(13);
+				$detail = $defender->getName()." attack with ".$dmg." damage ";
+				$arr_detail[] = $detail;
 			}
 			
 			if($defender->getHp()<=0){
@@ -48,7 +50,7 @@
 		}
 		
 		$battleLog->setTurn($turn);
-		$battleLog->setDetail($detail);
+		$battleLog->setDetail($arr_detail);
 		
 		$battleLog->insertLog();
 	}
