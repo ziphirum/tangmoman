@@ -179,7 +179,7 @@
 	class BattleLog extends TMClass{
 		protected $id;
 		protected $turn;
-		protected $detail;
+		protected $detail = array();
 		protected $attackerId;
 		protected $defenderId;
 		protected $attackerName;
@@ -205,7 +205,7 @@
 				while($row = mysqli_fetch_array($rs)){
 					$this->setId($row['id']);
 					$this->setName($row['name']);
-					$this->setDetail($row['detail']);
+					$this->setDetail(explode(NEW_LINE,$row['detail']));
 					$this->setAttackerId($row['attacker_id']);
 					$this->setDefenderId($row['defender_id']);
 					$this->setAttackerName($row['attacker']);
@@ -289,7 +289,7 @@
 
 			$conn = openConn();
 			$sql = "INSERT INTO tm_battle_log(detail, turn, attacker_id, defender_id, time)";
-			$sql .= "VALUES(" . sqlStr($detail) .",".  sqlStr($turn) .",". sqlStr($atkId) .",". sqlStr($defId) .",". sqlStr($time) . ")";
+			$sql .= "VALUES(" . sqlStr(implode(NEW_LINE,$detail)) .",".  sqlStr($turn) .",". sqlStr($atkId) .",". sqlStr($defId) .",". sqlStr($time) . ")";
 			$rs = mysqli_query($conn, $sql);
 
 			closeConn($conn);
