@@ -182,6 +182,8 @@
 		protected $detail;
 		protected $attackerId;
 		protected $defenderId;
+		protected $attackerName;
+		protected $defenderName;
 		protected $time;
 		
 		function __construct($getid = ""){
@@ -189,17 +191,25 @@
 				$this->setId("");
 			}else{
 				$conn = openConn();
-				$sql  = "SELECT c.id,c.name,";
-				$sql .= "cd.name as character_data_name ";
-				$sql .= "from tm_character c ";
-				$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
-				$sql .= "where c.useraccount_id=".$userid;
+
+				$sql = "SELECT btl.id, btl.detail, btl.turn, btl.attacker_id, btl.defender_id, btl.time, ";
+				$sql .= "catk.name as attacker, cdef.name as defender ";
+				$sql .= "FROM tm_battle_log btl ";
+				$sql .= "left join tm_character catk on btl.attacker_id = catk.useraccount_id";
+				$sql .= "left join tm_character cdef on btl.defender_id = cdef.useraccount_id";
+				$sql .= "where id=" . $getId;
+				
 							
 				$rs = mysqli_query($conn,$sql);
 	
 				while($row = mysqli_fetch_array($rs)){
 					$this->setId($row['id']);
 					$this->setName($row['name']);
+					$this->setDetail($row['detail']);
+					$this->setAttackerId($row['attacker_id']);
+					$this->setDefenderId($row['defender_id']);
+					$this->setAttackerName($row['attacker']);
+					$this->setDefenderName($row['defender']);
 					$this->setCharacterDataName($row['character_data_name']);			
 				}
 				closeConn($conn);
@@ -245,6 +255,22 @@
 		function getDefenderId(){
 			return $this->defenderId;
 		}
+
+		function setAttackerName($str){
+			$this->attackerName = $str;
+		}
+		
+		function getAttackerName(){
+			return $this->attackerName;
+		}
+		
+		function setDefenderName($str){
+			$this->defenderName = $str;
+		}
+		
+		function getDefenderName(){
+			return $this->defenderName;
+		}
 		
 		function setTime($str){
 			$this->time = $str;
@@ -264,7 +290,6 @@
 			$conn = openConn();
 			$sql = "INSERT INTO tm_battle_log(detail, turn, attacker_id, defender_id, time)";
 			$sql .= "VALUES(" . sqlStr($detail) .",".  sqlStr($turn) .",". sqlStr($atkId) .",". sqlStr($defId) .",". sqlStr($time) . ")";
-			echo $sql;
 			$rs = mysqli_query($conn, $sql);
 
 			closeConn($conn);
