@@ -10,13 +10,10 @@
 		protected $id;
 		protected $username;
 		protected $name;
-		protected $win;
-		protected $lose;
-		protected $draw;
 		
 		function __construct($userid){
 			$conn = openConn();
-			$sql  = "SELECT id,username,name,win,lose,draw ";
+			$sql  = "SELECT id,username,name, ";
 			$sql .= "from tm_useraccount ";
 			$sql .= "where id=".$userid;
 			
@@ -26,9 +23,7 @@
 				$this->setId($row['id']);
 				$this->setUsername($row['username']);
 				$this->setName($row['name']);
-				$this->setWin($row['win']);
-				$this->setLose($row['lose']);
-				$this->setDraw($row['draw']);			
+							
 			}
 
 			closeConn($conn);
@@ -58,29 +53,6 @@
 			return $this->name;
 		}
 		
-		function setWin($str){
-			$this->win = $str;
-		}
-		
-		function getWin(){
-			return $this->win;
-		}
-		
-		function setLose($str){
-			$this->lose = $str;
-		}
-		
-		function getLose(){
-			return $this->lose;
-		}
-		
-		function setDraw($str){
-			$this->draw = $str;
-		}
-		
-		function getDraw(){
-			return $this->draw;
-		}
 
 	}
 	
@@ -92,10 +64,13 @@
 		protected $maxHp;
 		protected $maxSp;
 		protected $characterDataName;
+		protected $win;
+		protected $lose;
+		protected $draw;
 		
 		function __construct($userid){
 			$conn = openConn();
-			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,";
+			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,c.win,c.lose,c.draw,";
 			$sql .= "cd.name as character_data_name ";
 			$sql .= "from tm_character c ";
 			$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
@@ -110,7 +85,10 @@
 				$this->setSp($row['sp']);			
 				$this->setMaxHp($row['max_hp']);			
 				$this->setMaxSp($row['max_sp']);			
-				$this->setCharacterDataName($row['character_data_name']);			
+				$this->setCharacterDataName($row['character_data_name']);	
+				$this->setWin($row['win']);
+				$this->setLose($row['lose']);
+				$this->setDraw($row['draw']);		
 			}
 
 			closeConn($conn);
@@ -170,6 +148,30 @@
 		
 		function getCharacterDataName(){
 			return $this->characterDataName;
+		}
+		
+		function setWin($str){
+			$this->win = $str;
+		}
+		
+		function getWin(){
+			return $this->win;
+		}
+		
+		function setLose($str){
+			$this->lose = $str;
+		}
+		
+		function getLose(){
+			return $this->lose;
+		}
+		
+		function setDraw($str){
+			$this->draw = $str;
+		}
+		
+		function getDraw(){
+			return $this->draw;
 		}
 		
 	}

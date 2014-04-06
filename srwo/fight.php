@@ -5,30 +5,53 @@
 
 
 	
-	$attacker = $_GET['attacker'];
-	$defender = $_GET['defender'];
+	$attackerid = $_GET['attacker'];
+	$defenderid = $_GET['defender'];
 
-	function fight($attacker, $defender){
+	function fight($attackerid, $defenderid){
 		// attacker -1 lose , 0 draw, 1 win
 		// $resultMap = array(-1 => "LOST", 0 => "DRAW", 1 => "WIN");
 		// $result = $resultArr[rand(-1,1)];
 
 		// echo $result;
-
-		$conn = openConn();
-		// Check connection
-
-		mysqli_query($conn,"INSERT INTO Persons (FirstName, LastName, Age)
-		VALUES ('Peter', 'Griffin',35)");
-
-		mysqli_query($conn,"INSERT INTO Persons (FirstName, LastName, Age) 
-		VALUES ('Glenn', 'Quagmire',33)");
-
-		mysqli_close($conn);
-
+		$battleLog = new BattleLog();
+		$battleLog->setAttackerId($attackerid);
+		$battleLog->setDefenderId($defenderid);
+		
+		$attacker = new Character($attackerid);
+		$defender = new Character($defenderid);
+		
+		$detail = "";
+		$turn = 0;
+		
+		while(true){
+			$turn++;
+			if(isOdd($turn)){
+				$dmg = rand(100,500);
+				$defender->setHp($defender->getHp()-$dmg);
+				$detail .= $attacker->getName()." attack with ".$dmg."".chr(13);
+			}else{
+				$dmg = rand(100,500);
+				$attacker->setHp($attacker->getHp()-$dmg);
+				$detail .= $defender->getName()." attack with ".$dmg."".chr(13);
+			}
+			
+			if($defender->getHp()<=0){
+				$defender->setHp(0);
+				break;
+			}
+			iif($defender->getHp()<=0){
+				$defender->setHp(0);
+				break;
+			}
+		}
+		
+		$battleLog->setTurn($turn);
+		$battleLog->setDetail($detail);
+		
+		$battleLog->insertLog();
 	}
 	
-
-	fight($attacker, $defender);
+	fight($attackerid,$defenderid);
 
 ?>

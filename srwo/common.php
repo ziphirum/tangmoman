@@ -15,6 +15,14 @@
 	function isEmpty($str){
 		return !isNotEmpty($str);
 	}
+	
+	function isEven($n){
+		return $n%2==0;
+	}
+	
+	function isOdd($n){
+		return !isEven($n);
+	}
 
 	function classToJson($status,$a){
 		$arr_obj_vars = array();
