@@ -20,12 +20,12 @@
 			$objs_vars = array();
 			
 			$user_vars = $user->getObjectVars();
-			$user_vars[getClass] = get_class($user);
-			$objs_vars[] = $user_vars;
+			//$user_vars[getClass] = get_class($user);
+			$objs_vars[get_class($user)] = $user_vars;
 			
 			$char_vars = $char->getObjectVars();
-			$char_vars[getClass] = get_class($char);
-			$objs_vars[] = $char_vars;
+			//$char_vars[getClass] = get_class($char);
+			$objs_vars[get_class($char)] = $char_vars;
 			
 			$arr_obj_vars[] = $objs_vars;
 			
