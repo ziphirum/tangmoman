@@ -30,11 +30,11 @@
 			if(isOdd($turn)){
 				$dmg = rand(100,500);
 				$defender->setHp($defender->getHp()-$dmg);
-				$detail .= $attacker->getName()." attack with ".$dmg."".chr(13);
+				$detail .= $attacker->getName()." attack with ".$dmg." damage ".chr(13);
 			}else{
 				$dmg = rand(100,500);
 				$attacker->setHp($attacker->getHp()-$dmg);
-				$detail .= $defender->getName()." attack with ".$dmg."".chr(13);
+				$detail .= $defender->getName()." attack with ".$dmg." damage ".chr(13);
 			}
 			
 			if($defender->getHp()<=0){
