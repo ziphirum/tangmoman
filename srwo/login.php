@@ -1,5 +1,5 @@
 <?php
-
+	
 	include "session.php";
 	include "database.php";
 	include "common.php";

@@ -4,6 +4,10 @@
 		return "'".$str."'" ;
 	}
 
+	function isNotEmpty($str){
+		return $str !== null && $str !== "";
+	}
+
 	function classToJson($status,$a){
 		$arr_obj_vars = array();
 		$arr_obj_vars[Status] = $status;
@@ -16,4 +20,5 @@
 		}
 		return json_encode($arr_obj_vars);
 	}
+
 ?>
