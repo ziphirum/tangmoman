@@ -39,6 +39,12 @@
 	}
 	
 	$userId = getLoginSession();
-	$response = townList($userId);
-	echo $response;
+	if(isEmpty($userId)){
+		$result = array ("Status" => "ERROR");
+		echo json_encode($result);
+	}else{
+		$response = townList($userId);
+		echo $response;
+	}
+	
 ?>
