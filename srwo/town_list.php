@@ -2,6 +2,7 @@
 	
 	include 'database.php';
 	include 'class.php';
+	include "session.php";
 
 	function townList($userid){
 		$conn = openConn();
@@ -31,13 +32,13 @@
 			
 		}
 		$arr_json_return = array();
-		$arr_json_return[TownList] = $arr_obj_vars;
 		$arr_json_return[Status] = "OK";
+		$arr_json_return[TownList] = $arr_obj_vars;
 		closeConn($conn);
 		return json_encode($arr_json_return);
 	}
 	
-	$userId = $_GET['id'];
+	$userId = getLoginSession();
 	$response = townList($userId);
 	echo $response;
 ?>

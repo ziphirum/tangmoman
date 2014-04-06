@@ -17,12 +17,12 @@
 	closeConn($conn);
 	
 	if($userId == ""){
-		$result = array ("status" => "ERROR");
+		$result = array ("Status" => "ERROR");
 		echo json_encode($result);
 	}else{
 		$user = new UserAccount($userId);
 		$char = new Character($userId);
-		echo classToJson($user, $char);
+		echo classToJson("OK",$user, $char);
 	}
 	
 
