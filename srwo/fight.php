@@ -15,6 +15,7 @@
 
 		echo $result;
 	}
+	
 
 	fight($attacker, $defender);
 

@@ -133,4 +133,88 @@
 		}
 		
 	}
+	
+	class BattleLog extends TMClass{
+		protected $id;
+		protected $turn;
+		protected $detail;
+		protected $attackerId;
+		protected $defenderId;
+		protected $time;
+		
+		function __construct($userid){
+			if($userId == ""){
+				$this->setId("");
+			}else{
+				$conn = openConn();
+				$sql  = "SELECT c.id,c.name,";
+				$sql .= "cd.name as character_data_name ";
+				$sql .= "from tm_character c ";
+				$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
+				$sql .= "where c.useraccount_id=".$userid;
+							
+				$rs = mysqli_query($conn,$sql);
+	
+				while($row = mysqli_fetch_array($rs)){
+					$this->setId($row['id']);
+					$this->setName($row['name']);
+					$this->setCharacterDataName($row['character_data_name']);			
+				}
+				closeConn($conn);
+			}
+		}
+		
+		function setId($str){
+			$this->id = $str;
+		}
+		
+		function getId(){
+			return $this->id;
+		}
+		
+		function setTurn($str){
+			$this->turn = $str;
+		}
+		
+		function getTurn(){
+			return $this->turn;
+		}
+		
+		function setDetail($str){
+			$this->detail = $str;
+		}
+		
+		function getDetail(){
+			return $this->detail;
+		}
+		
+		function setAttackerId($str){
+			$this->attackerId = $str;
+		}
+		
+		function getAttackerId(){
+			return $this->attackerId;
+		}
+		
+		function setDefenderId($str){
+			$this->defenderId = $str;
+		}
+		
+		function getDefenderId(){
+			return $this->defenderId;
+		}
+		
+		function setTime($str){
+			$this->time = $str;
+		}
+		
+		function getTime(){
+			return $this->time;
+		}
+		
+		function insertLog(){
+			
+		}
+		
+	}
 ?>
