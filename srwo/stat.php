@@ -16,7 +16,7 @@
 	}
 	closeConn($conn);
 	
-	if($userId == ""){
+	if(isEmpty($userId)){
 		$result = array ("Status" => "ERROR");
 		echo json_encode($result);
 	}else{
