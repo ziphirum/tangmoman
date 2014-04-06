@@ -36,6 +36,6 @@ CREATE TABLE tm_battle_log (
      turn INT,
      attacker_id INT NOT NULL,
      defender_id INT NOT NULL,
-     time DATE,
+     time DATETIME,
      PRIMARY KEY (id)
 );

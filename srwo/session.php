@@ -5,12 +5,12 @@
 	session_start();
 	
 	function createLoginSession($userid){
-		$_SESSION[ses_uid] = $userid;
+		$_SESSION[SES_UID] = $userid;
 		session_regenerate_id();
 	}
 
 	function getLoginSession(){
-		return $_SESSION[ses_uid];
+		return $_SESSION[SES_UID];
 	}
 
 ?>

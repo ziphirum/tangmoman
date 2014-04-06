@@ -142,8 +142,8 @@
 		protected $defenderId;
 		protected $time;
 		
-		function __construct($userid){
-			if($userId == ""){
+		function __construct($getid){
+			if($getid == ""){
 				$this->setId("");
 			}else{
 				$conn = openConn();
@@ -213,8 +213,11 @@
 		}
 		
 		function insertLog(){
-			
+			$turn = $this->getTurn();
+			$atkId = $this->getAttackerId();
+			$defId = $this->getDefenderId();
+			$time = date(DATE_FORMAT);
+			$detail = $this->getDetail();
 		}
-		
 	}
 ?>
