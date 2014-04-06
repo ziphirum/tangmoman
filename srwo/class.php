@@ -214,10 +214,10 @@
 		
 		function insertLog(){
 			$turn = $this->getTurn();
+			$detail = $this->getDetail();
 			$atkId = $this->getAttackerId();
 			$defId = $this->getDefenderId();
 			$time = date(DATE_FORMAT);
-			$detail = $this->getDetail();
 		}
 	}
 ?>
