@@ -4,12 +4,16 @@
 		return "'".$str."'" ;
 	}
 
+	function jsonError(){
+		return json_encode(array("Status" => "ERROR"));
+	}
+
 	function isNotEmpty($str){
 		return $str !== null && $str !== "";
 	}
 
 	function isEmpty($str){
-		return $str == null || $str == "";
+		return !isNotEmpty($str);
 	}
 
 	function classToJson($status,$a){

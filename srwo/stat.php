@@ -17,8 +17,7 @@
 	closeConn($conn);
 	
 	if(isEmpty($userId)){
-		$result = array ("Status" => "ERROR");
-		echo json_encode($result);
+		echo jsonError();
 	}else{
 		$user = new UserAccount($userId);
 		$char = new Character($userId);
