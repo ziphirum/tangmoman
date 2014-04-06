@@ -184,6 +184,10 @@
 		protected $defenderId;
 		protected $attackerName;
 		protected $defenderName;
+		protected $attackerHp;
+		protected $defenderHp;
+		protected $attackerSp;
+		protected $defenderSp;
 		protected $time;
 		
 		function __construct($getid = ""){
@@ -208,6 +212,7 @@
 					$this->setDetail(explode(NEW_LINE,$row['detail']));
 					$this->setAttackerId($row['attacker_id']);
 					$this->setDefenderId($row['defender_id']);
+					$this->setTime($row['time']);
 					$this->setAttackerName($row['attacker']);
 					$this->setDefenderName($row['defender']);
 					$this->setCharacterDataName($row['character_data_name']);			
@@ -285,7 +290,7 @@
 			$detail = $this->getDetail();
 			$atkId = $this->getAttackerId();
 			$defId = $this->getDefenderId();
-			$time = date(DATE_FORMAT);
+			$time = $this->getTime();
 
 			$conn = openConn();
 			$sql = "INSERT INTO tm_battle_log(detail, turn, attacker_id, defender_id, time)";

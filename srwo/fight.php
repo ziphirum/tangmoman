@@ -54,7 +54,8 @@
 		
 		$battleLog->setTurn($turn);
 		$battleLog->setDetail($arr_detail);
-		
+		$battleLog->setTime(date(DATE_FORMAT));
+
 		$battleLog->insertLog();
 
 		return $battleLog;

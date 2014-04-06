@@ -38,10 +38,14 @@ CREATE TABLE tm_useraccount (
 
 CREATE TABLE tm_battle_log (
      id INT NOT NULL AUTO_INCREMENT,
-     detail CHAR(255) NOT NULL,
-     turn INT,
+     detail TEXT,
+     turn INT NOT NULL,
      attacker_id INT NOT NULL,
      defender_id INT NOT NULL,
      time DATETIME,
+     attacker_hp INT NOT NULL,
+     defender_hp INT NOT NULL,
+     attacker_sp INT NOT NULL,
+     defender_sp INT NOT NULL,
      PRIMARY KEY (id)
 );
