@@ -333,9 +333,10 @@
 			$time = $this->getTime();
 
 			$conn = openConn();
-			$sql = "INSERT INTO tm_battle_log(detail, turn, attacker_id, defender_id, attacker_hp, defender_hp, time)";
+			$sql = "INSERT INTO tm_battle_log(detail, turn, attacker_id, defender_id, attacker_hp, defender_hp, attacker_sp, defender_sp, time)";
 			$sql .= "VALUES(" . sqlStr(implode(NEW_LINE,$detail)) .",".  sqlStr($turn) .",". sqlStr($atkId) .",". sqlStr($defId).",";
 			$sql .= sqlStr($atkHp) .",". sqlStr($defHp) .",". sqlStr($atkSp) .",". sqlStr($defSp) .",". sqlStr($time) . ")";
+			echo $sql;
 			$rs = mysqli_query($conn, $sql);
 
 			closeConn($conn);

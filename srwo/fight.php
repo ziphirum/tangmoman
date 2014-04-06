@@ -4,17 +4,14 @@
 	include "class.php";
 	include "common.php";
 	include "constants.php";
+	include "session.php";
 
 	
-	$attackerid = $_GET["attacker"];
-	$defenderid = $_GET["defender"];
+	$attackerid = getLoginSession();
+	$defenderid = $_GET["target"];
 
 	function fight($attackerid, $defenderid){
-		// attacker -1 lose , 0 draw, 1 win
-		// $resultMap = array(-1 => "LOST", 0 => "DRAW", 1 => "WIN");
-		// $result = $resultArr[rand(-1,1)];
 
-		// echo $result;
 		$battleLog = new BattleLog();
 		$battleLog->setAttackerId($attackerid);
 		$battleLog->setDefenderId($defenderid);
@@ -27,7 +24,7 @@
 		
 		$arr_detail = array();
 		$turn = 0;
-		
+
 		while(true){
 			$turn++;
 			if(isOdd($turn)){
@@ -64,6 +61,11 @@
 		return $battleLog;
 	}
 	
-	echo classToJson("OK", fight($attackerid,$defenderid));
+	if (isEmpty($attackerid) || isEmpty($defenderid) || $attackerid === $defenderid) {
+		echo jsonError();
+	} else {
+		$battleLog = fight($attackerid,$defenderid);
+		echo classToJson("OK", $battleLog);
+	}
 
 ?>
