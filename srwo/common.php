@@ -5,7 +5,7 @@
 	}
 
 	function jsonError(){
-		return json_encode(array("Status" => "ERROR"));
+		return json_encode(array("status" => "ERROR"));
 	}
 
 	function isNotEmpty($str){
@@ -18,7 +18,7 @@
 
 	function classToJson($status,$a){
 		$arr_obj_vars = array();
-		$arr_obj_vars[Status] = $status;
+		$arr_obj_vars[status] = $status;
 		$args = func_get_args();
 		array_shift($args);
 		foreach ($args as $obj){
