@@ -133,7 +133,7 @@
 		}
 		
 	}
-	
+
 	class BattleLog extends TMClass{
 		protected $id;
 		protected $turn;
@@ -142,7 +142,7 @@
 		protected $defenderId;
 		protected $time;
 		
-		function __construct($getid){
+		function __construct($getid = ""){
 			if($getid == ""){
 				$this->setId("");
 			}else{

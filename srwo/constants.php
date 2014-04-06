@@ -10,6 +10,4 @@
 
 	define("DATE_FORMAT", "Y-m-d H:i:s");
 
-
-	echo date(DATE_FORMAT);
 ?>
