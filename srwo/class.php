@@ -188,6 +188,10 @@
 		protected $defenderHp;
 		protected $attackerSp;
 		protected $defenderSp;
+		protected $attackerMaxHp;
+		protected $defenderMaxHp;
+		protected $attackerMaxSp;
+		protected $defenderMaxSp;
 		protected $time;
 		
 		function __construct($getid = ""){
@@ -197,7 +201,8 @@
 				$conn = openConn();
 
 				$sql = "SELECT btl.id, btl.detail, btl.turn, btl.attacker_id, btl.defender_id, btl.time, ";
-				$sql .= "btl.attacker_hp, btl.defender_hp, btl.attacker_sp, btl.defender_sp ";
+				$sql .= "btl.attacker_hp, btl.defender_hp, btl.attacker_sp, btl.defender_sp, ";
+				$sql .= "btl.attacker_max_hp, btl.defender_max_hp, btl.attacker_max_sp, btl.defender_max_sp, ";
 				$sql .= "catk.name as attacker, cdef.name as defender ";
 				$sql .= "FROM tm_battle_log btl ";
 				$sql .= "left join tm_character catk on btl.attacker_id = catk.useraccount_id";
@@ -220,6 +225,10 @@
 					$this->setDefenderHp($row['defender_hp']);
 					$this->setAttackerSp($row['attacker_sp']);
 					$this->setDefenderSp($row['defender_sp']);
+					$this->setAttackerHp($row['attacker_max_hp']);
+					$this->setDefenderHp($row['defender_max_hp']);
+					$this->setAttackerSp($row['attacker_max_sp']);
+					$this->setDefenderSp($row['defender_max_sp']);
 					$this->setCharacterDataName($row['character_data_name']);			
 				}
 				closeConn($conn);
@@ -281,6 +290,7 @@
 		function getDefenderName(){
 			return $this->defenderName;
 		}
+		
 		function setAttackerHp($str){
 			$this->attackerHp = $str;
 		}
@@ -313,6 +323,38 @@
 			return $this->defenderSp;
 		}
 		
+		function setAttackerMaxHp($str){
+			$this->attackerMaxHp = $str;
+		}
+		
+		function getAttackerMaxHp(){
+			return $this->attackerMaxHp;
+		}
+		
+		function setDefenderMaxHp($str){
+			$this->defenderMaxHp = $str;
+		}
+		
+		function getDefenderMaxHp(){
+			return $this->defenderMaxHp;
+		}
+
+		function setAttackerMaxSp($str){
+			$this->attackerMaxSp = $str;
+		}
+		
+		function getAttackerMaxSp(){
+			return $this->attackerMaxSp;
+		}
+		
+		function setDefenderMaxSp($str){
+			$this->defenderMaxSp = $str;
+		}
+		
+		function getDefenderMaxSp(){
+			return $this->defenderMaxSp;
+		}
+		
 		function setTime($str){
 			$this->time = $str;
 		}
@@ -330,12 +372,18 @@
 			$defHp = $this->getDefenderHp();
 			$atkSp = $this->getAttackerSp();
 			$defSp = $this->getDefenderSp();
+			$atkMaxHp = $this->getAttackerMaxHp();
+			$defMaxHp = $this->getDefenderMaxHp();
+			$atkMaxSp = $this->getAttackerMaxSp();
+			$defMaxSp = $this->getDefenderMaxSp();
 			$time = $this->getTime();
 
 			$conn = openConn();
-			$sql = "INSERT INTO tm_battle_log(detail, turn, attacker_id, defender_id, attacker_hp, defender_hp, attacker_sp, defender_sp, time)";
+			$sql = "INSERT INTO tm_battle_log(detail, turn, attacker_id, defender_id, attacker_hp, defender_hp, attacker_sp, defender_sp, attacker_max_hp, defender_max_hp, attacker_max_sp, defender_max_sp, time)";
 			$sql .= "VALUES(" . sqlStr(implode(NEW_LINE,$detail)) .",".  sqlStr($turn) .",". sqlStr($atkId) .",". sqlStr($defId).",";
-			$sql .= sqlStr($atkHp) .",". sqlStr($defHp) .",". sqlStr($atkSp) .",". sqlStr($defSp) .",". sqlStr($time) . ")";
+			$sql .= sqlStr($atkHp) .",". sqlStr($defHp) .",". sqlStr($atkSp) .",". sqlStr($defSp) .",";
+			$sql .= sqlStr($atkMaxHp) .",". sqlStr($defMaxHp) .",". sqlStr($atkMaxSp) .",". sqlStr($defMaxSp) .",";
+			$sql .= sqlStr($time) . ")";
 			echo $sql;
 			$rs = mysqli_query($conn, $sql);
 
