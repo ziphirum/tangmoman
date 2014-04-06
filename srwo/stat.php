@@ -5,7 +5,10 @@
 	include "class.php";
 	include "session.php";
 	
-	$userid = getLoginSession();
+	$userid = $_GET["id"];
+	if(isEmpty($userid)){
+		$userid = getLoginSession();
+	}
 	$conn = openConn();
 	$sql = "SELECT *  FROM tm_useraccount WHERE id= ".sqlStr($userid);
 
