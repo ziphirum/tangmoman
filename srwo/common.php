@@ -11,8 +11,8 @@
 			$obj_vars = $obj->getObjectVars();
 			//$obj_vars[getClass] = get_class($obj);
 			$arr_obj_vars[get_class($obj)] = $obj_vars;
-			$arr_obj_vars[Status] = "OK";
 		}
+		$arr_obj_vars[Status] = "OK";
 		return json_encode($arr_obj_vars);
 	}
 ?>
