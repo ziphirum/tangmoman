@@ -87,11 +87,15 @@
 	class Character extends TMClass{
 		protected $id;
 		protected $name;
+		protected $hp;
+		protected $sp;
+		protected $maxHp;
+		protected $maxSp;
 		protected $characterDataName;
 		
 		function __construct($userid){
 			$conn = openConn();
-			$sql  = "SELECT c.id,c.name,";
+			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,";
 			$sql .= "cd.name as character_data_name ";
 			$sql .= "from tm_character c ";
 			$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
@@ -102,6 +106,10 @@
 			while($row = mysqli_fetch_array($rs)){
 				$this->setId($row['id']);
 				$this->setName($row['name']);
+				$this->setHp($row['hp']);			
+				$this->setSp($row['sp']);			
+				$this->setMaxHp($row['max_hp']);			
+				$this->setMaxSp($row['max_sp']);			
 				$this->setCharacterDataName($row['character_data_name']);			
 			}
 
@@ -122,6 +130,38 @@
 		
 		function getName(){
 			return $this->name;
+		}
+		
+		function setHp($str){
+			$this->hp = $str;
+		}
+		
+		function getHp(){
+			return $this->hp;
+		}
+		
+		function setSp($str){
+			$this->sp = $str;
+		}
+		
+		function getSp(){
+			return $this->hp;
+		}
+		
+		function setMaxHp($str){
+			$this->maxHp = $str;
+		}
+		
+		function getMaxHp(){
+			return $this->maxHp;
+		}
+		
+		function setMaxSp($str){
+			$this->maxSp = $str;
+		}
+		
+		function getMaxSp(){
+			return $this->maxSp;
 		}
 		
 		function setCharacterDataName($str){
