@@ -55,7 +55,10 @@
 		$battleLog->setTurn($turn);
 		$battleLog->setDetail($arr_detail);
 		$battleLog->setTime(date(DATE_FORMAT));
-
+		$battleLog->setAttackerHp($attacker->getHp());
+		$battleLog->setAttackerSp($attacker->getSp());
+		$battleLog->setDefenderHp($defender->getHp());
+		$battleLog->setDefenderSp($defender->getSp());
 		$battleLog->insertLog();
 
 		return $battleLog;
