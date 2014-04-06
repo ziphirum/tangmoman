@@ -8,6 +8,10 @@
 		return $str !== null && $str !== "";
 	}
 
+	function isEmpty($str){
+		return $str == null || $str == "";
+	}
+
 	function classToJson($status,$a){
 		$arr_obj_vars = array();
 		$arr_obj_vars[Status] = $status;
