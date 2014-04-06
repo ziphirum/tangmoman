@@ -19,7 +19,7 @@
 	}
 	closeConn($conn);
 	
-	if(isEmpty($userId) && isEmpty(getLoginSession())){
+	if(isEmpty($userId) || isEmpty(getLoginSession())){
 		echo jsonError();
 	}else{
 		$user = new UserAccount($userId);
