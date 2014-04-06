@@ -123,7 +123,7 @@
 		}
 		
 		function getSp(){
-			return $this->hp;
+			return $this->sp;
 		}
 		
 		function setMaxHp($str){
@@ -225,10 +225,10 @@
 					$this->setDefenderHp($row['defender_hp']);
 					$this->setAttackerSp($row['attacker_sp']);
 					$this->setDefenderSp($row['defender_sp']);
-					$this->setAttackerHp($row['attacker_max_hp']);
-					$this->setDefenderHp($row['defender_max_hp']);
-					$this->setAttackerSp($row['attacker_max_sp']);
-					$this->setDefenderSp($row['defender_max_sp']);
+					$this->setAttackerMaxHp($row['attacker_max_hp']);
+					$this->setDefenderMaxHp($row['defender_max_hp']);
+					$this->setAttackerMaxSp($row['attacker_max_sp']);
+					$this->setDefenderMaxSp($row['defender_max_sp']);
 					$this->setCharacterDataName($row['character_data_name']);			
 				}
 				closeConn($conn);
@@ -304,7 +304,7 @@
 		}
 		
 		function getDefenderHp(){
-			return $this->defenderhp;
+			return $this->defenderHp;
 		}
 
 		function setAttackerSp($str){
@@ -384,7 +384,9 @@
 			$sql .= sqlStr($atkHp) .",". sqlStr($defHp) .",". sqlStr($atkSp) .",". sqlStr($defSp) .",";
 			$sql .= sqlStr($atkMaxHp) .",". sqlStr($defMaxHp) .",". sqlStr($atkMaxSp) .",". sqlStr($defMaxSp) .",";
 			$sql .= sqlStr($time) . ")";
-			echo $sql;
+			
+			// echo $sql;
+
 			$rs = mysqli_query($conn, $sql);
 
 			closeConn($conn);

@@ -8,7 +8,7 @@
 
 	
 	$attackerid = getLoginSession();
-	$defenderid = $_GET["target"];
+	$defenderid = intval($_GET["target"]);
 
 	function fight($attackerid, $defenderid){
 
@@ -43,23 +43,23 @@
 				$defender->setHp(0);
 				break;
 			}
-			if($defender->getHp()<=0){
-				$defender->setHp(0);
+			if($attacker->getHp()<=0){
+				$attacker->setHp(0);
 				break;
 			}
 		}
 		
-		$battleLog->setTurn($turn);
+		$battleLog->setTurn(intval($turn));
 		$battleLog->setDetail($arr_detail);
 		$battleLog->setTime(date(DATE_FORMAT));
-		$battleLog->setAttackerMaxHp($attacker->getMaxHp());
-		$battleLog->setDefenderMaxHp($defender->getMaxHp());
-		$battleLog->setAttackerMaxSp($attacker->getMaxSp());
-		$battleLog->setDefenderMaxSp($defender->getMaxSp());
-		$battleLog->setAttackerHp($attacker->getHp());
-		$battleLog->setAttackerSp($attacker->getSp());
-		$battleLog->setDefenderHp($defender->getHp());
-		$battleLog->setDefenderSp($defender->getSp());
+		$battleLog->setAttackerMaxHp(intval($attacker->getMaxHp()));
+		$battleLog->setDefenderMaxHp(intval($defender->getMaxHp()));
+		$battleLog->setAttackerMaxSp(intval($attacker->getMaxSp()));
+		$battleLog->setDefenderMaxSp(intval($defender->getMaxSp()));
+		$battleLog->setAttackerHp(intval($attacker->getHp()));
+		$battleLog->setAttackerSp(intval($attacker->getSp()));
+		$battleLog->setDefenderHp(intval($defender->getHp()));
+		$battleLog->setDefenderSp(intval($defender->getSp()));
 		$battleLog->insertLog();
 
 		return $battleLog;
