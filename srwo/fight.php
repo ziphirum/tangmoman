@@ -52,6 +52,10 @@
 		$battleLog->setTurn($turn);
 		$battleLog->setDetail($arr_detail);
 		$battleLog->setTime(date(DATE_FORMAT));
+		$battleLog->setAttackerMaxHp($attacker->getMaxHp());
+		$battleLog->setDefenderMaxHp($defender->getMaxHp());
+		$battleLog->setAttackerMaxSp($attacker->getMaxSp());
+		$battleLog->setDefenderMaxSp($defender->getMaxSp());
 		$battleLog->setAttackerHp($attacker->getHp());
 		$battleLog->setAttackerSp($attacker->getSp());
 		$battleLog->setDefenderHp($defender->getHp());
