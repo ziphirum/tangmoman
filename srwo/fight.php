@@ -21,6 +21,9 @@
 		
 		$attacker = new Character($attackerid);
 		$defender = new Character($defenderid);
+
+		$battleLog->setAttackerName($attacker->getName());
+		$battleLog->setDefenderName($defender->getName());
 		
 		$arr_detail = array();
 		$turn = 0;
@@ -53,8 +56,10 @@
 		$battleLog->setDetail($arr_detail);
 		
 		$battleLog->insertLog();
+
+		return $battleLog;
 	}
 	
-	fight($attackerid,$defenderid);
+	echo classToJson("OK", fight($attackerid,$defenderid));
 
 ?>

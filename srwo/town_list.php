@@ -34,7 +34,7 @@
 		}
 		$arr_json_return = array();
 		$arr_json_return[status] = "OK";
-		$arr_json_return[townList] = $arr_obj_vars;
+		$arr_json_return[TownList] = $arr_obj_vars;
 		closeConn($conn);
 		return json_encode($arr_json_return);
 	}
