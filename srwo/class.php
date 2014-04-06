@@ -218,6 +218,15 @@
 			$atkId = $this->getAttackerId();
 			$defId = $this->getDefenderId();
 			$time = date(DATE_FORMAT);
+
+			$conn = openConn();
+			$sql = "INSERT INTO tm_battle_log(detail, turn, attacker_id, defender_id, time)";
+			$sql .= "VALUES(" . $detail .",".  $turn .",". $atkId .",". $defId .",". $time . ")";
+
+			$rs = mysqli_query($conn, $sql);
+
+			closeConn($con);
+
 		}
 	}
 ?>

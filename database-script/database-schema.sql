@@ -1,12 +1,18 @@
 CREATE TABLE tm_character_data (
      id INT NOT NULL AUTO_INCREMENT,
      name CHAR(30) NOT NULL,
+     hp INT NOT NULL,
+     sp INT NOT NULL,
      PRIMARY KEY (id)
 );
 
 CREATE TABLE tm_character (
      id INT NOT NULL AUTO_INCREMENT,
      name CHAR(30) NOT NULL,
+     hp INT NOT NULL,
+     sp INT NOT NULL,
+     max_hp INT NOT NULL,
+     max_sp INT NOT NULL,
      character_data_id INT NOT NULL,
      useraccount_id INT NOT NULL,
      PRIMARY KEY (id)
