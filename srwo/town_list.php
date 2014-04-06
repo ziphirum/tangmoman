@@ -30,9 +30,11 @@
 			$arr_obj_vars[] = $objs_vars;
 			
 		}
-		
+		$arr_json_return = array();
+		$arr_json_return[DefenderList] = $arr_obj_vars;
+		$arr_json_return[status] = "OK";
 		closeConn($conn);
-		return json_encode($arr_obj_vars);
+		return json_encode($arr_json_return);
 	}
 	
 	$userId = $_GET['id'];
