@@ -9,6 +9,7 @@
 	define("DRAW", 0);
 
 	define("DATE_FORMAT", "Y-m-d H:i:s");
+	define("NOW", date(DATE_FORMAT))
 	
 	define("NEW_LINE", chr(13));
 	
