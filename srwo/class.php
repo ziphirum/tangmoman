@@ -392,7 +392,7 @@
 			$conn = openConn();
 			$sql = "INSERT INTO tm_battle_log(detail, turn, result, attacker_id, defender_id, attacker_hp, defender_hp, attacker_sp, defender_sp, attacker_max_hp, defender_max_hp, attacker_max_sp, defender_max_sp, time)";
 			$sql .= "VALUES(" . sqlStr(implode(NEW_LINE,$detail)) .",".  sqlStr($turn) .",". sqlStr($result) .",". sqlStr($atkId) .",";
-			$sql .= sqlStr($defId).","sqlStr($atkHp) .",". sqlStr($defHp) .",". sqlStr($atkSp) .",". sqlStr($defSp) .",";
+			$sql .= sqlStr($defId)."," . sqlStr($atkHp) .",". sqlStr($defHp) .",". sqlStr($atkSp) .",". sqlStr($defSp) .",";
 			$sql .= sqlStr($atkMaxHp) .",". sqlStr($defMaxHp) .",". sqlStr($atkMaxSp) .",". sqlStr($defMaxSp) .",";
 			$sql .= sqlStr($time) . ")";
 			

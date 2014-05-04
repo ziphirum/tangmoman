@@ -10,7 +10,7 @@
 	$b->setTurn("1");
 	$b->setAttackerId(1);
 	$b->setDefenderId(2);
-	// $b->insertLog();
+	$b->insertLog();
 
 	
 

@@ -10,8 +10,8 @@
 
 	define("DATE_FORMAT", "Y-m-d H:i:s");
 	
-	define("NEW_LINE",chr(13));
+	define("NEW_LINE", chr(13));
 	
-	define("MAX_TURN",999;
+	define("MAX_TURN", 999);
 
 ?>
