@@ -3,6 +3,11 @@ CREATE TABLE tm_character_data (
      name CHAR(30) NOT NULL,
      hp INT NOT NULL,
      sp INT NOT NULL,
+     attack INT DEFAULT 0,
+     defense INT DEFAULT 0,
+     accuracy INT DEFAULT 0,
+     evasion INT DEFAULT 0,
+     critical INT DEFAULT 0,
      PRIMARY KEY (id)
 );
 
@@ -18,6 +23,11 @@ CREATE TABLE tm_character (
      win INT DEFAULT 0,
      lose INT DEFAULT 0,
      draw INT DEFAULT 0,
+     attack INT DEFAULT 0,
+     defense INT DEFAULT 0,
+     accuracy INT DEFAULT 0,
+     evasion INT DEFAULT 0,
+     critical INT DEFAULT 0,
      PRIMARY KEY (id)
 );
 
@@ -43,6 +53,7 @@ CREATE TABLE tm_battle_log (
      attacker_id INT NOT NULL,
      defender_id INT NOT NULL,
      time DATETIME,
+     result INT NOT NULL,
      attacker_max_hp INT NOT NULL,
      defender_max_hp INT NOT NULL,
      attacker_max_sp INT NOT NULL,

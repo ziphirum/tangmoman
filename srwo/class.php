@@ -179,6 +179,7 @@
 	class BattleLog extends TMClass{
 		protected $id;
 		protected $turn;
+		protected $result;
 		protected $detail = array();
 		protected $attackerId;
 		protected $defenderId;
@@ -200,7 +201,7 @@
 			}else{
 				$conn = openConn();
 
-				$sql = "SELECT btl.id, btl.detail, btl.turn, btl.attacker_id, btl.defender_id, btl.time, ";
+				$sql = "SELECT btl.id, btl.detail, btl.turn, btl.attacker_id, btl.defender_id, btl.time,btl.result, ";
 				$sql .= "btl.attacker_hp, btl.defender_hp, btl.attacker_sp, btl.defender_sp, ";
 				$sql .= "btl.attacker_max_hp, btl.defender_max_hp, btl.attacker_max_sp, btl.defender_max_sp, ";
 				$sql .= "catk.name as attacker, cdef.name as defender ";
@@ -219,6 +220,7 @@
 					$this->setAttackerId($row['attacker_id']);
 					$this->setDefenderId($row['defender_id']);
 					$this->setTime($row['time']);
+					$this->setResult($row['result']);
 					$this->setAttackerName($row['attacker']);
 					$this->setDefenderName($row['defender']);
 					$this->setAttackerHp($row['attacker_hp']);
@@ -249,6 +251,14 @@
 		
 		function getTurn(){
 			return $this->turn;
+		}
+		
+		function setResult($str){
+			$this->result = $str;
+		}
+		
+		function getResult(){
+			return $this->result;
 		}
 		
 		function setDetail($str){
@@ -365,6 +375,7 @@
 		
 		function insertLog(){
 			$turn = $this->getTurn();
+			$result = $this->getResult();
 			$detail = $this->getDetail();
 			$atkId = $this->getAttackerId();
 			$defId = $this->getDefenderId();
@@ -379,9 +390,9 @@
 			$time = $this->getTime();
 
 			$conn = openConn();
-			$sql = "INSERT INTO tm_battle_log(detail, turn, attacker_id, defender_id, attacker_hp, defender_hp, attacker_sp, defender_sp, attacker_max_hp, defender_max_hp, attacker_max_sp, defender_max_sp, time)";
-			$sql .= "VALUES(" . sqlStr(implode(NEW_LINE,$detail)) .",".  sqlStr($turn) .",". sqlStr($atkId) .",". sqlStr($defId).",";
-			$sql .= sqlStr($atkHp) .",". sqlStr($defHp) .",". sqlStr($atkSp) .",". sqlStr($defSp) .",";
+			$sql = "INSERT INTO tm_battle_log(detail, turn, result, attacker_id, defender_id, attacker_hp, defender_hp, attacker_sp, defender_sp, attacker_max_hp, defender_max_hp, attacker_max_sp, defender_max_sp, time)";
+			$sql .= "VALUES(" . sqlStr(implode(NEW_LINE,$detail)) .",".  sqlStr($turn) .",". sqlStr($result) .",". sqlStr($atkId) .",";
+			$sql .= sqlStr($defId).","sqlStr($atkHp) .",". sqlStr($defHp) .",". sqlStr($atkSp) .",". sqlStr($defSp) .",";
 			$sql .= sqlStr($atkMaxHp) .",". sqlStr($defMaxHp) .",". sqlStr($atkMaxSp) .",". sqlStr($defMaxSp) .",";
 			$sql .= sqlStr($time) . ")";
 			

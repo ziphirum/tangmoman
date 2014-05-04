@@ -27,6 +27,10 @@
 
 		while(true){
 			$turn++;
+			if($turn > MAX_TURN){
+				$battleLog->setResult(DRAW);
+				break;
+			}
 			if(isOdd($turn)){
 				$dmg = rand(100,500);
 				$defender->setHp($defender->getHp()-$dmg);
@@ -40,10 +44,12 @@
 			}
 			
 			if($defender->getHp()<=0){
+				$battleLog->setResult(WIN);
 				$defender->setHp(0);
 				break;
 			}
 			if($attacker->getHp()<=0){
+				$battleLog->setResult(LOSE);
 				$attacker->setHp(0);
 				break;
 			}
