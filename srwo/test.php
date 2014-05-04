@@ -12,4 +12,6 @@
 	$b->setDefenderId(2);
 	$b->insertLog();
 
+	
+
 ?>
