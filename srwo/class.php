@@ -63,6 +63,11 @@
 		protected $sp;
 		protected $maxHp;
 		protected $maxSp;
+		protected $attack;
+		protected $defense;
+		protected $accuracy;
+		protected $evasion;
+		protected $critical;		
 		protected $characterDataName;
 		protected $win;
 		protected $lose;
@@ -71,6 +76,7 @@
 		function __construct($userid){
 			$conn = openConn();
 			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,c.win,c.lose,c.draw,";
+			$sql .= "c.attack,c.defense,c.accuracy,c.evasion,c.critical,";
 			$sql .= "cd.name as character_data_name ";
 			$sql .= "from tm_character c ";
 			$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
@@ -85,6 +91,11 @@
 				$this->setSp($row['sp']);			
 				$this->setMaxHp($row['max_hp']);			
 				$this->setMaxSp($row['max_sp']);			
+				$this->setAttack($row['attack']);			
+				$this->setDefense($row['defense']);			
+				$this->setAccuracy($row['accuracy']);			
+				$this->setEvasion($row['evasion']);			
+				$this->setCritical($row['critical']);			
 				$this->setCharacterDataName($row['character_data_name']);	
 				$this->setWin($row['win']);
 				$this->setLose($row['lose']);
@@ -124,6 +135,46 @@
 		
 		function getSp(){
 			return $this->sp;
+		}
+		
+		function setAttack($str){
+			$this->attack = $str;
+		}
+		
+		function getAttack(){
+			return $this->attack;
+		}
+		
+		function setDefense($str){
+			$this->defense = $str;
+		}
+		
+		function getDefense(){
+			return $this->defense;
+		}
+		
+		function setAccuracy($str){
+			$this->accuracy = $str;
+		}
+		
+		function getAccuracy(){
+			return $this->accuracy;
+		}
+		
+		function setEvasion($str){
+			$this->evasion = $str;
+		}
+		
+		function getEvasion(){
+			return $this->evasion;
+		}
+		
+		function setCritical($str){
+			$this->critical = $str;
+		}
+		
+		function getCritical(){
+			return $this->critical;
 		}
 		
 		function setMaxHp($str){
@@ -390,9 +441,9 @@
 			$time = $this->getTime();
 
 			$conn = openConn();
-			$sql = "INSERT INTO tm_battle_log(detail, turn, result, attacker_id, defender_id, attacker_hp, defender_hp, attacker_sp, defender_sp, attacker_max_hp, defender_max_hp, attacker_max_sp, defender_max_sp, time)";
+			$sql = "INSERT INTO tm_battle_log(detail, turn, result, attacker_id, defender_id, attacker_hp, defender_hp, attacker_sp, defender_sp, attacker_max_hp, defender_max_hp, attacker_max_sp, defender_max_sp, time) ";
 			$sql .= "VALUES(" . sqlStr(implode(NEW_LINE,$detail)) .",".  sqlStr($turn) .",". sqlStr($result) .",". sqlStr($atkId) .",";
-			$sql .= sqlStr($defId).","sqlStr($atkHp) .",". sqlStr($defHp) .",". sqlStr($atkSp) .",". sqlStr($defSp) .",";
+			$sql .= sqlStr($defId) .",". sqlStr($atkHp) .",". sqlStr($defHp) .",". sqlStr($atkSp) .",". sqlStr($defSp) .",";
 			$sql .= sqlStr($atkMaxHp) .",". sqlStr($defMaxHp) .",". sqlStr($atkMaxSp) .",". sqlStr($defMaxSp) .",";
 			$sql .= sqlStr($time) . ")";
 			
