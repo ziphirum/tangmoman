@@ -1,4 +1,4 @@
---All character data
+-- All character data
 CREATE TABLE tm_character_data (
      id INT NOT NULL AUTO_INCREMENT,
      name CHAR(30) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE tm_character_data (
      PRIMARY KEY (id)
 );
 
---Character data of each account
+-- Character data of each account
 CREATE TABLE tm_character (
      id INT NOT NULL AUTO_INCREMENT,
      name CHAR(30) NOT NULL,
@@ -69,7 +69,7 @@ CREATE TABLE tm_battle_log (
      PRIMARY KEY (id)
 );
 
---All skill data
+-- All skill data
 CREATE TABLE tm_skill_data (
      id INT NOT NULL AUTO_INCREMENT,
      name CHAR(30) NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE tm_skill_data (
      upgrade_money INT NOT NULL
 );
 
---Base skill of each character
+-- Base skill of each character
 CREATE TABLE tm_char_skill_data (
      id INT NOT NULL AUTO_INCREMENT,
      char_id INT NOT NULL,
