@@ -105,7 +105,6 @@
 			$sql .= "from tm_char_skill ";
 			$sql .= "where character_id=".$this->getId()." ";
 			$sql .= "order by damage ";		
-			echo $sql.'<br>';
 			$rs = mysqli_query($conn,$sql);
 			$askill = array();
 			while($row = mysqli_fetch_array($rs)){
@@ -482,12 +481,11 @@
 		
 		function __construct($sid){
 			$conn = openConn();
-			$sql  = "SELECT s.id,sd.name,s.damage,s.accuracy,s.critical,s.amount,s.sp_usage,";
+			$sql  = "SELECT s.id,sd.name,s.damage,sd.accuracy,sd.critical,sd.amount,sd.sp_usage,";
 			$sql .= "sd.upgrade_damage,sd.upgrade_money,s.upgrade_count ";
 			$sql .= "from tm_char_skill s ";
 			$sql .= "left join tm_skill_data sd on sd.id=s.skill_id ";
 			$sql .= "where s.id=".$sid;
-			echo $sql.'<br>';
 			$rs = mysqli_query($conn,$sql);
 
 			while($row = mysqli_fetch_array($rs)){
