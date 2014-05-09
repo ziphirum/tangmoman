@@ -102,7 +102,7 @@
 			}
 			
 			$sql  = "select id ";
-			$sql .= "from tm_skill ";
+			$sql .= "from tm_char_skill ";
 			$sql .= "where character_id=".$this->getId()." ";
 			$sql .= "order by damage ";		
 			$rs = mysqli_query($conn,$sql);
@@ -483,7 +483,7 @@
 			$conn = openConn();
 			$sql  = "SELECT s.id,sd.name,s.damage,s.accuracy,s.critical,s.amount,s.sp_usage,";
 			$sql .= "sd.upgrade_damage,sd.upgrade_money,s.upgrade_count ";
-			$sql .= "from tm_skill s ";
+			$sql .= "from tm_char_skill s ";
 			$sql .= "left join tm_skill_data sd on sd.id=s.skill_id ";
 			$sql .= "where s.id=".$sid;
 			
