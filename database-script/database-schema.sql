@@ -1,3 +1,4 @@
+--All character data
 CREATE TABLE tm_character_data (
      id INT NOT NULL AUTO_INCREMENT,
      name CHAR(30) NOT NULL,
@@ -11,6 +12,7 @@ CREATE TABLE tm_character_data (
      PRIMARY KEY (id)
 );
 
+--Character data of each account
 CREATE TABLE tm_character (
      id INT NOT NULL AUTO_INCREMENT,
      name CHAR(30) NOT NULL,
@@ -31,12 +33,14 @@ CREATE TABLE tm_character (
      PRIMARY KEY (id)
 );
 
+/* -- MAY NOT USE
 CREATE TABLE tm_town (
      id INT NOT NULL AUTO_INCREMENT,
      name CHAR(30) NOT NULL,
      useraccount_id INT NOT NULL,
      PRIMARY KEY (id)
 );
+*/
 
 CREATE TABLE tm_useraccount (
      id INT NOT NULL AUTO_INCREMENT,
@@ -63,4 +67,34 @@ CREATE TABLE tm_battle_log (
      attacker_sp INT NOT NULL,
      defender_sp INT NOT NULL,
      PRIMARY KEY (id)
+);
+
+--All skill data
+CREATE TABLE tm_skill_data (
+     id INT NOT NULL AUTO_INCREMENT,
+     name CHAR(30) NOT NULL,
+     damage INT NOT NULL,
+     upgrade_damage INT NOT NULL,
+     accuracy INT NOT NULL,
+     critical INT NOT NULL,
+     sp_usage INT NOT NULL,
+     amount INT NOT NULL,
+     upgrade_money INT NOT NULL
+);
+
+--Base skill of each character
+CREATE TABLE tm_char_skill_data (
+     id INT NOT NULL AUTO_INCREMENT,
+     char_id INT NOT NULL,
+     skill_id INT NOT NULL
+);
+
+
+-- Current skill of each character
+CREATE TABLE tm_char_skill (
+     id INT NOT NULL AUTO_INCREMENT,
+     char_id INT NOT NULL,
+     skill_id INT NOT NULL,
+     damage INT NOT NULL,
+     upgrade_count INT NOT NULL
 );
