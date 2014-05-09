@@ -238,7 +238,7 @@
 		function getObjectVars(){
 			$obj_vars = get_object_vars($this);
 			for($i=0;$i<count($obj_vars["skill"]);$i++){
-				$obj_vars["skill"][$i] = $obj_vars["skill"][$i].getObjectVars();
+				$obj_vars["skill"][$i] = $obj_vars["skill"][$i]->getObjectVars();
 			}
 			return $obj_vars;
 		}
