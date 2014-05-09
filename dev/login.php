@@ -5,10 +5,10 @@
 	include "common.php";
 	include "class.php";
 	
-	function login($username) {
+	function login($username, $password) {
 		$conn = openConn();
-		$stmt = $conn->prepare("SELECT id FROM tm_useraccount WHERE username=?");
-		$stmt->bind_param("s", $username);
+		$stmt = $conn->prepare("SELECT id FROM tm_useraccount WHERE username=? and password=?");
+		$stmt->bind_param("ss", $username, $password);
 		$stmt->execute();
 
 		$stmt->store_result();
@@ -27,22 +27,12 @@
 		closeConn($conn);
 
 		return $result;
-		// ##########################################################################
-
-		// $conn = openConn();
-		// $sql = "SELECT *  FROM tm_useraccount WHERE username= ".sqlStr($username);
-
-		// $result = mysqli_query($conn, $sql);
-		// $userId;
-		// while($row = mysqli_fetch_array($result)){
-		// 	$userId = $row["id"];
-		// }
-		// closeConn($conn);
-		// return $userId;
 	}
 
 	$username = $_GET["username"];
-	$result = login($username);
+	$password = $_GET["password"];
+
+	$result = login($username, $password);
 	echo json_encode($result);
 	
 	// $user = new UserAccount($userId);
