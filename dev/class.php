@@ -105,6 +105,7 @@
 			$sql .= "from tm_char_skill ";
 			$sql .= "where character_id=".$this->getId()." ";
 			$sql .= "order by damage ";		
+			echo $sql;
 			$rs = mysqli_query($conn,$sql);
 			$askill = array();
 			while($row = mysqli_fetch_array($rs)){
