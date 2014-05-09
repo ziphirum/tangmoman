@@ -85,7 +85,7 @@ CREATE TABLE tm_skill_data (
 -- Base skill of each character
 CREATE TABLE tm_char_skill_data (
      id INT NOT NULL AUTO_INCREMENT,
-     char_id INT NOT NULL,
+     character_id INT NOT NULL,
      skill_id INT NOT NULL
 );
 
@@ -93,7 +93,7 @@ CREATE TABLE tm_char_skill_data (
 -- Current skill of each character
 CREATE TABLE tm_char_skill (
      id INT NOT NULL AUTO_INCREMENT,
-     char_id INT NOT NULL,
+     character_id INT NOT NULL,
      skill_id INT NOT NULL,
      damage INT NOT NULL,
      upgrade_count INT NOT NULL
