@@ -71,12 +71,13 @@
 		protected $win;
 		protected $lose;
 		protected $draw;
+		protected $skill = array();
 		
 		function __construct($userid){
 			$conn = openConn();
 			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,c.win,c.lose,c.draw,";
 			$sql .= "c.defense,c.accuracy,c.evasion,c.critical,";
-			$sql .= "cd.name as character_data_name ";
+			$sql .= "cd.name as character_data_name,";
 			$sql .= "from tm_character c ";
 			$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
 			$sql .= "where c.useraccount_id=".$userid;
@@ -99,7 +100,18 @@
 				$this->setLose($row['lose']);
 				$this->setDraw($row['draw']);		
 			}
-
+			
+			$sql  = "select id ";
+			$sql .= "from tm_skill s ";
+			$sql .= "left join tm_skill_data sd on sd.id=s.skill_id ";
+			$sql .= "where character_id=".$this->getId();		
+			$rs = mysqli_query($conn,$sql);
+			$askill = array();
+			while($row = mysqli_fetch_array($rs)){
+				$askill[] = new Skill($row['id']);		
+			}
+			$this->setSkill($askill);
+			
 			closeConn($conn);
 		}
 		
@@ -214,6 +226,15 @@
 		function getDraw(){
 			return $this->draw;
 		}
+		
+		function setSkill($str){
+			$this->skill = $str;
+		}
+		
+		function getSkill(){
+			return $this->skill;
+		}
+		
 		
 	}
 
@@ -448,8 +469,17 @@
 	
 	class Skill extends TMClass{
 		protected $id;
+		protected $name;
 		protected $damage;
+		protected $accuracy;
+		protected $critical;
+		protected $damage;		
 		protected $amount;
 		protected $spUsage;
+		protected $upgradeDamage;
+		protected $upgradeMoney;
+		protected $upgradeCount;
+		
+		
 	}
 ?>
