@@ -63,7 +63,6 @@
 		protected $sp;
 		protected $maxHp;
 		protected $maxSp;
-		protected $attack;
 		protected $defense;
 		protected $accuracy;
 		protected $evasion;
@@ -76,7 +75,7 @@
 		function __construct($userid){
 			$conn = openConn();
 			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,c.win,c.lose,c.draw,";
-			$sql .= "c.attack,c.defense,c.accuracy,c.evasion,c.critical,";
+			$sql .= "c.defense,c.accuracy,c.evasion,c.critical,";
 			$sql .= "cd.name as character_data_name ";
 			$sql .= "from tm_character c ";
 			$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
@@ -91,7 +90,6 @@
 				$this->setSp($row['sp']);			
 				$this->setMaxHp($row['max_hp']);			
 				$this->setMaxSp($row['max_sp']);			
-				$this->setAttack($row['attack']);			
 				$this->setDefense($row['defense']);			
 				$this->setAccuracy($row['accuracy']);			
 				$this->setEvasion($row['evasion']);			
@@ -135,14 +133,6 @@
 		
 		function getSp(){
 			return $this->sp;
-		}
-		
-		function setAttack($str){
-			$this->attack = $str;
-		}
-		
-		function getAttack(){
-			return $this->attack;
 		}
 		
 		function setDefense($str){
@@ -454,5 +444,12 @@
 			closeConn($conn);
 
 		}
+	}
+	
+	class Skill extends TMClass{
+		protected $id;
+		protected $damage;
+		protected $amount;
+		protected $spUsage;
 	}
 ?>
