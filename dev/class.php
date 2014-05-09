@@ -77,11 +77,11 @@
 			$conn = openConn();
 			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,c.win,c.lose,c.draw,";
 			$sql .= "c.defense,c.accuracy,c.evasion,c.critical,";
-			$sql .= "cd.name as character_data_name,";
+			$sql .= "cd.name as character_data_name ";
 			$sql .= "from tm_character c ";
 			$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
 			$sql .= "where c.useraccount_id=".$userid;
-			echo $sql;			
+						
 			$rs = mysqli_query($conn,$sql);
 
 			while($row = mysqli_fetch_array($rs)){
