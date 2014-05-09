@@ -79,14 +79,16 @@ CREATE TABLE tm_skill_data (
      critical INT NOT NULL,
      sp_usage INT NOT NULL,
      amount INT NOT NULL,
-     upgrade_money INT NOT NULL
+     upgrade_money INT NOT NULL,
+     PRIMARY KEY (id)
 );
 
 -- Base skill of each character
 CREATE TABLE tm_char_skill_data (
      id INT NOT NULL AUTO_INCREMENT,
      character_id INT NOT NULL,
-     skill_id INT NOT NULL
+     skill_id INT NOT NULL,
+     PRIMARY KEY (id)
 );
 
 
@@ -96,5 +98,6 @@ CREATE TABLE tm_char_skill (
      character_id INT NOT NULL,
      skill_id INT NOT NULL,
      damage INT NOT NULL,
-     upgrade_count INT NOT NULL
+     upgrade_count INT NOT NULL,
+     PRIMARY KEY (id)
 );
