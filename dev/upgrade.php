@@ -5,11 +5,12 @@
 	include "common.php";
 	include "constants.php";
 	include "session.php";
-
 	
-	$attackerid = getLoginSession();
-	$defenderid = intval($_GET["target"]);
-
+	function upgradeSkill($skillid){
+		$userid		= getLoginSession();
+		$character 	= new Character($userid);
+		
+	}
 	function fight($attackerid, $defenderid){
 
 		$battleLog = new BattleLog();
@@ -32,18 +33,14 @@
 				break;
 			}
 			if(isOdd($turn)){
-				$skill = useSkill($attacker);
-				$dmg = $skill->getDamage();
-				$dmg = rand(intval($dmg*(1-DAMAGE_DEVIATION)),intval($dmg*(1+DAMAGE_DEVIATION)));
+				$dmg = rand(100,500);
 				$defender->setHp($defender->getHp()-$dmg);
-				$detail = $attacker->getName()." attack with ".$skill->getName()." cause ".$dmg." damage ";
+				$detail = $attacker->getName()." attack with ".$dmg." damage ";
 				$arr_detail[] = $detail;
 			}else{
-				$skill = useSkill($defender);
-				$dmg = $skill->getDamage();
-				$dmg = rand(intval($dmg*(1-DAMAGE_DEVIATION)),intval($dmg*(1+DAMAGE_DEVIATION)));
+				$dmg = rand(100,500);
 				$attacker->setHp($attacker->getHp()-$dmg);
-				$detail = $defender->getName()." attack with ".$skill->getName()." cause ".$dmg." damage ";
+				$detail = $defender->getName()." attack with ".$dmg." damage ";
 				$arr_detail[] = $detail;
 			}
 			
@@ -73,38 +70,6 @@
 		$battleLog->insertLog();
 
 		return $battleLog;
-	}
-	
-	function useSkill(&$char){
-		$nskill = chooseSkill($char);
-		$skill = $char->getSkill();
-		$spUsage = $skill[$nskill]->getSpUsage();
-		$amount = $skill[$nskill]->getAmount();
-		if(isNotEmpty($spUsage)){
-			$char->setSp($char->getSp()-$spUsage);
-		}
-		if(isNotEmpty($amount)){
-			$skill[$nskill]->setAmount($amount-1);
-			$char->setSkill($skill);
-		}
-		return $skill[$nskill];
-	}
-	
-	function chooseSkill($char){
-		$sp = $char->getSp();
-		$skill = $char->getSkill();
-		$retval = count($skill)-1;
-		for($i=0;$i<count($skill);$i++){
-			$spUsage = $skill[i]->getSpUsage();
-			$amount = $skill[i]->getAmount();		
-			if((isNotEmpty($spUsage) && $sp<$spUsage) || (isNotEmpty($amount) && $amount==0)){
-				continue;
-			}else{
-				$retval = $i;
-				break;
-			}
-		}
-		return $retval;
 	}
 	
 	if (isEmpty($attackerid) || isEmpty($defenderid) || $attackerid === $defenderid) {

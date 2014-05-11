@@ -15,4 +15,6 @@
 	
 	define("MAX_TURN", 999);
 
+	define("DAMAGE_DEVIATION", 0.1);
+
 ?>
