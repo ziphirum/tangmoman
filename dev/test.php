@@ -5,22 +5,64 @@
 	include "database.php";
 	include "common.php";
 
-	$b = new BattleLog();
-	$b->setDetail("detail");
-	$b->setTurn("1");
-	$b->setAttackerId(1);
-	$b->setDefenderId(2);
-	// $b->insertLog();
+	// prepateStatement();
+	echo jsonError("test");
 
-	echo date(DATE_FORMAT);
 
-	$v = 5.2 * 3;
-
-	if($v>15.6 AND $v<15.60000000001) {
-	    echo 'We are doomed :S';
-	    var_dump($v); // float 15.6
-	} else {
-	    echo 'Everything is fine =)';
+	function battleLog(){
+		$b = new BattleLog();
+		$b->setDetail("detail");
+		$b->setTurn("1");
+		$b->setAttackerId(1);
+		$b->setDefenderId(2);
+		// $b->insertLog();
 	}
+
+	function prepateStatement(){
+		$conn = openConn();
+		$stmt = $conn->prepare("SELECT id,username,password FROM tm_useraccount WHERE username=? and password=?");
+		$username = "test";
+		$password = "test";
+		$stmt->bind_param("ss", $username, $password);
+		$stmt->execute();
+
+		$stmt->store_result();
+		$stmt->bind_result($i, $u, $p);
+
+		$result = array ("status" => "ERROR");
+		while($stmt->fetch())
+		{
+			echo $i . $u . $p;
+		}
+
+		$stmt->close();
+		closeConn($conn);
+	}
+
+	function prepateStatement2(){
+		$conn = openConn();
+		$sql = "UPDATE tm_char_skill SET damage = damage + ? , upgrade_count = upgrade_count + 1 ";
+		$sql .= "WHERE character_id = ? and skill_id = ?";
+		$stmt = $conn->prepare($sql);
+
+		$dmg = 100;
+		$cid = 2;
+		$sid = 2;
+		$stmt->bind_param("iii", $dmg, $cid, $sid);
+		$stmt->execute();
+
+		$stmt->store_result();
+		$stmt->bind_result($i, $u, $p);
+
+		$result = array ("status" => "ERROR");
+		while($stmt->fetch())
+		{
+			echo $i . $u . $p;
+		}
+
+		$stmt->close();
+		closeConn($conn);
+	}
+
 
 ?>

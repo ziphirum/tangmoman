@@ -271,6 +271,34 @@
 			closeConn($conn);
 			return $rs;
 		}
+
+		function upgradeSkill($skillId){
+			$skillList = $this->getSkill();
+			$skillListLength = count($skillList);
+			$rs = false;
+			for ($i=0; $i < $skillListLength; $i++) {
+				// Validate selected skill id
+				if ($skillId === $skillList[$i]->getId()) {
+					// Check money
+					if ($this->getMoney() >= $skillList[$i]->getUpgradeMoney()) {
+						$skillList[$i]->getUpgradeDamage();
+						$skillList[$i]->getUpgradeCount();
+
+						// Update skill
+						$sql = "UPDATE tm_char_skill SET damage = damage+" . $skillList[$i]->getUpgradeDamage();
+						$sql .= " , upgrade_count = upgrade_count + 1 ";
+						$sql .= "WHERE id = " . $skillId;
+
+						// TODO: Decrease money
+
+						$conn = openConn();
+						$rs = mysqli_query($conn, $sql);
+						closeConn($conn);
+					}
+				}
+			}
+			return $rs;
+		}
 		
 		function getObjectVars(){
 			$obj_vars = get_object_vars($this);

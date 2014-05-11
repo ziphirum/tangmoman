@@ -25,7 +25,6 @@
 
 		$stmt->close();
 		closeConn($conn);
-
 		return $result;
 	}
 
