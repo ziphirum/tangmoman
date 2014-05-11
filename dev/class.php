@@ -85,6 +85,7 @@
 			$sql .= "where c.useraccount_id=".$userid;
 
 			$rs = mysqli_query($conn,$sql);
+			// closeConn($conn);
 
 			while($row = mysqli_fetch_array($rs)){
 				$this->setId($row['id']);
@@ -266,15 +267,9 @@
 			}
 
 			$conn = openConn();
-			$rs = mysqli_query($conn,$sql);
+			$rs = mysqli_query($conn, $sql);
 			closeConn($conn);
-			$numRows = mysql_num_rows ($rs);
-			
-			if ($numRows === 1) {
-				return jsonOk();
-			} else {
-				return jsonError();
-			}
+			return $rs;
 		}
 		
 		function getObjectVars(){
