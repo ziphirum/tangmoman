@@ -29,6 +29,8 @@
 			$turn++;
 			if($turn > MAX_TURN){
 				$battleLog->setResult(DRAW);
+				$attacker->updateFight(DRAW);
+				$defender->updateFight(DRAW);
 				break;
 			}
 			if(isOdd($turn)){
@@ -50,11 +52,15 @@
 			if($defender->getHp()<=0){
 				$battleLog->setResult(WIN);
 				$defender->setHp(0);
+				$attacker->updateFight(WIN);
+				$defender->updateFight(LOSE);
 				break;
 			}
 			if($attacker->getHp()<=0){
 				$battleLog->setResult(LOSE);
 				$attacker->setHp(0);
+				$attacker->updateFight(LOSE);
+				$defender->updateFight(WIN);
 				break;
 			}
 		}
@@ -106,7 +112,7 @@
 		}
 		return $retval;
 	}
-	
+		
 	if (isEmpty($attackerid) || isEmpty($defenderid) || $attackerid === $defenderid) {
 		echo jsonError();
 	} else {
