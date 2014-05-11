@@ -29,7 +29,12 @@
 
 		// echo classToJson("OK", $char);
 		$skills = $char->getSkill();
-		echo $skills[0]->getName();
+		foreach ($skills as $skill){
+			// $obj_vars = $obj->getObjectVars();
+			//$obj_vars[getClass] = get_class($obj);
+			// $arr_obj_vars[get_class($obj)] = $obj_vars;
+		}
+		echo classToJson("OK", $skills[0]);
 	}
 
 	/*

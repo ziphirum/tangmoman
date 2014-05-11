@@ -254,7 +254,28 @@
 		function getMoney(){
 			return $this->money;
 		}
-		
+
+		function updateFight($status){
+			$sql;
+			if ($status === WIN) {
+				$sql = "UPDATE tm_character SET win = win+1 WHERE id = " . $this->getId();
+			} elseif ($status === DRAW) {
+				$sql = "UPDATE tm_character SET draw = draw+1 WHERE id = " . $this->getId();
+			}  elseif ($status === LOSE) {
+				$sql = "UPDATE tm_character SET lose = lose+1 WHERE id = " . $this->getId();
+			}
+
+			$conn = openConn();
+			$rs = mysqli_query($conn,$sql);
+			closeConn($conn);
+			$numRows = mysql_num_rows ($rs);
+			
+			if ($numRows === 1) {
+				return jsonOk();
+			} else {
+				return jsonError();
+			}
+		}
 		
 		function getObjectVars(){
 			$obj_vars = get_object_vars($this);

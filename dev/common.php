@@ -4,6 +4,10 @@
 		return "'".$str."'" ;
 	}
 
+	function jsonOk(){
+		return json_encode(array("status" => "OK"));
+	}
+
 	function jsonError(){
 		return json_encode(array("status" => "ERROR"));
 	}
