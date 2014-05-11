@@ -95,8 +95,8 @@
 		$skill = $char->getSkill();
 		$retval = count($skill)-1;
 		for($i=0;$i<count($skill);$i++){
-			$spUsage = $skill[i]->getSpUsage();
-			$amount = $skill[i]->getAmount();		
+			$spUsage = $skill[$i]->getSpUsage();
+			$amount = $skill[$i]->getAmount();		
 			if((isNotEmpty($spUsage) && $sp<$spUsage) || (isNotEmpty($amount) && $amount==0)){
 				continue;
 			}else{
