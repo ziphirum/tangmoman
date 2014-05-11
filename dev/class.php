@@ -71,17 +71,19 @@
 		protected $win;
 		protected $lose;
 		protected $draw;
+		protected $money;
+		protected $turn;
 		protected $skill = array();
 		
 		function __construct($userid){
 			$conn = openConn();
-			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,c.win,c.lose,c.draw,";
+			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,c.win,c.lose,c.draw,c.money,c.turn, ";
 			$sql .= "c.defense,c.accuracy,c.evasion,c.critical,";
 			$sql .= "cd.name as character_data_name ";
 			$sql .= "from tm_character c ";
 			$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
 			$sql .= "where c.useraccount_id=".$userid;
-						
+
 			$rs = mysqli_query($conn,$sql);
 
 			while($row = mysqli_fetch_array($rs)){
@@ -98,13 +100,15 @@
 				$this->setCharacterDataName($row['character_data_name']);	
 				$this->setWin($row['win']);
 				$this->setLose($row['lose']);
-				$this->setDraw($row['draw']);		
+				$this->setDraw($row['draw']);
+				$this->setMoney($row['money']);
+				$this->setTurn($row['turn']);
 			}
 			
 			$sql  = "select id ";
 			$sql .= "from tm_char_skill ";
 			$sql .= "where character_id=".$this->getId()." ";
-			$sql .= "order by damage desc ";		
+			$sql .= "order by damage desc ";
 			$rs = mysqli_query($conn,$sql);
 			$askill = array();
 			while($row = mysqli_fetch_array($rs)){
@@ -234,6 +238,23 @@
 		function getSkill(){
 			return $this->skill;
 		}
+
+		function setTurn($str){
+			$this->turn = $str;
+		}
+		
+		function getTurn(){
+			return $this->turn;
+		}
+
+		function setMoney($str){
+			$this->money = $str;
+		}
+		
+		function getMoney(){
+			return $this->money;
+		}
+		
 		
 		function getObjectVars(){
 			$obj_vars = get_object_vars($this);
@@ -242,7 +263,7 @@
 			}
 			return $obj_vars;
 		}
-		
+
 		
 	}
 
