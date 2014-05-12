@@ -294,6 +294,7 @@
 
 						$rs = executeSQL($skillSQL);
 					}
+					break;
 				}
 			}
 			return $rs;

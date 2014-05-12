@@ -24,7 +24,7 @@
 		
 		$arr_detail = array();
 		$turn = 0;
-
+		$attacking = array();
 		while(true){
 			$turn++;
 			if($turn > MAX_TURN){
@@ -34,19 +34,13 @@
 				break;
 			}
 			if(isOdd($turn)){
-				$skill = useSkill($attacker);
-				$dmg = $skill->getDamage();
-				$dmg = rand(intval($dmg*(1-DAMAGE_DEVIATION)),intval($dmg*(1+DAMAGE_DEVIATION)));
-				$defender->setHp($defender->getHp()-$dmg);
-				$detail = $attacker->getName()." attack with ".$skill->getName()." cause ".$dmg." damage ";
-				$arr_detail[] = $detail;
+				$fightDetail = skillAttack($attacker);
+				$defender->setHp($defender->getHp()-$fightDetail[0]);		
+				$arr_detail[] = $fightDetail[1];
 			}else{
-				$skill = useSkill($defender);
-				$dmg = $skill->getDamage();
-				$dmg = rand(intval($dmg*(1-DAMAGE_DEVIATION)),intval($dmg*(1+DAMAGE_DEVIATION)));
-				$attacker->setHp($attacker->getHp()-$dmg);
-				$detail = $defender->getName()." attack with ".$skill->getName()." cause ".$dmg." damage ";
-				$arr_detail[] = $detail;
+				$fightDetail = skillAttack($defender);
+				$attacker->setHp($attacker->getHp()-$fightDetail[0]);		
+				$arr_detail[] = $fightDetail[1];
 			}
 			
 			if($defender->getHp()<=0){
@@ -111,6 +105,22 @@
 			}
 		}
 		return $retval;
+	}
+	
+	function skillAttack(&$char){
+		$skill = useSkill($char);
+		$dmg = $skill->getDamage();
+		$dmg = rand(intval($dmg*(1-DAMAGE_DEVIATION)),intval($dmg*(1+DAMAGE_DEVIATION)));
+		
+		$criticalRate = $skill->getCritical();
+		$criticalDamage = $char->getCritical();
+		if(isRandom($skill->getCritical())){
+			$dmg += $dmg * rand(intval($criticalDamage/2),$criticalDamage)/100;
+			$dmg  = intval($dmg);
+			$detail = $char->getName()." attack with ".$skill->getName()." cause ".$dmg." critical damage ";
+		}
+		$detail = $char->getName()." attack with ".$skill->getName()." cause ".$dmg." damage ";		
+		return array($dmg,$detail);
 	}
 		
 	if (isEmpty($attackerid) || isEmpty($defenderid) || $attackerid === $defenderid) {
