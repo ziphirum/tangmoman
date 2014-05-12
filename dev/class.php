@@ -257,7 +257,7 @@
 		}
 
 		function updateFight($status){
-			$sql;
+			$sql = "";
 			if ($status === WIN) {
 				$sql = "UPDATE tm_character SET win = win+1 WHERE id = " . $this->getId();
 			} elseif ($status === DRAW) {
@@ -266,37 +266,48 @@
 				$sql = "UPDATE tm_character SET lose = lose+1 WHERE id = " . $this->getId();
 			}
 
-			$conn = openConn();
-			$rs = mysqli_query($conn, $sql);
-			closeConn($conn);
+			if ($sql !== "") {
+				$conn = openConn();
+				$rs = mysqli_query($conn, $sql);
+				closeConn($conn);
+			}
 			return $rs;
 		}
 
 		function upgradeSkill($skillId){
 			$skillList = $this->getSkill();
 			$skillListLength = count($skillList);
-			$rs = false;
+			$rs = FALSE;
+			$skillSQL = "";
 			for ($i=0; $i < $skillListLength; $i++) {
 				// Validate selected skill id
 				if ($skillId === $skillList[$i]->getId()) {
-					// Check money
-					if ($this->getMoney() >= $skillList[$i]->getUpgradeMoney()) {
-						$skillList[$i]->getUpgradeDamage();
-						$skillList[$i]->getUpgradeCount();
-
+					// decrease money
+					$rs = $this->decreaseMoney($skillList[$i]->getUpgradeMoney());
+					if ($rs) {
 						// Update skill
-						$sql = "UPDATE tm_char_skill SET damage = damage+" . $skillList[$i]->getUpgradeDamage();
-						$sql .= " , upgrade_count = upgrade_count + 1 ";
-						$sql .= "WHERE id = " . $skillId;
+						$skillSQL = "UPDATE tm_char_skill SET damage = damage+" . $skillList[$i]->getUpgradeDamage();
+						$skillSQL .= " , upgrade_count = upgrade_count + 1 ";
+						$skillSQL .= "WHERE id = " . $skillId;
 
-						// TODO: Decrease money
-
-						$conn = openConn();
-						$rs = mysqli_query($conn, $sql);
-						closeConn($conn);
+						$rs = executeSQL($skillSQL);
 					}
 				}
 			}
+			return $rs;
+		}
+
+		function decreaseMoney($amount){
+			$moneySQL = "";
+			$rs = FALSE;
+			if ($this->getMoney() >= $amount) {
+				$moneySQL = "UPDATE tm_character SET money = money - " . $amount;
+				$moneySQL .= " WHERE id = " . $this->getId();
+			}
+			if ($moneySQL !== ""){
+				$rs = executeSQL($moneySQL);
+			}
+
 			return $rs;
 		}
 		

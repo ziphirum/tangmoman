@@ -27,11 +27,4 @@
 		}
 	}
 
-	/*
-		Get Char
-		Check upgrade skill id
-		check money and turn
-		UPDATE SQL
-	*/
-
 ?>
