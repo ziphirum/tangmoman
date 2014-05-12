@@ -71,18 +71,21 @@
 		protected $win;
 		protected $lose;
 		protected $draw;
+		protected $money;
+		protected $turn;
 		protected $skill = array();
 		
 		function __construct($userid){
 			$conn = openConn();
-			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,c.win,c.lose,c.draw,";
+			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,c.win,c.lose,c.draw,c.money,c.turn, ";
 			$sql .= "c.defense,c.accuracy,c.evasion,c.critical,";
 			$sql .= "cd.name as character_data_name ";
 			$sql .= "from tm_character c ";
 			$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
 			$sql .= "where c.useraccount_id=".$userid;
-						
+
 			$rs = mysqli_query($conn,$sql);
+			// closeConn($conn);
 
 			while($row = mysqli_fetch_array($rs)){
 				$this->setId($row['id']);
@@ -98,13 +101,15 @@
 				$this->setCharacterDataName($row['character_data_name']);	
 				$this->setWin($row['win']);
 				$this->setLose($row['lose']);
-				$this->setDraw($row['draw']);		
+				$this->setDraw($row['draw']);
+				$this->setMoney($row['money']);
+				$this->setTurn($row['turn']);
 			}
 			
 			$sql  = "select id ";
 			$sql .= "from tm_char_skill ";
 			$sql .= "where character_id=".$this->getId()." ";
-			$sql .= "order by damage desc ";		
+			$sql .= "order by damage desc ";
 			$rs = mysqli_query($conn,$sql);
 			$askill = array();
 			while($row = mysqli_fetch_array($rs)){
@@ -234,6 +239,91 @@
 		function getSkill(){
 			return $this->skill;
 		}
+
+		function setTurn($str){
+			$this->turn = $str;
+		}
+		
+		function getTurn(){
+			return $this->turn;
+		}
+
+		function setMoney($str){
+			$this->money = $str;
+		}
+		
+		function getMoney(){
+			return $this->money;
+		}
+
+		function updateFight($status){
+			$sql = "";
+			if ($status === WIN) {
+				$sql = "UPDATE tm_character SET win = win+1 WHERE id = " . $this->getId();
+			} elseif ($status === DRAW) {
+				$sql = "UPDATE tm_character SET draw = draw+1 WHERE id = " . $this->getId();
+			}  elseif ($status === LOSE) {
+				$sql = "UPDATE tm_character SET lose = lose+1 WHERE id = " . $this->getId();
+			}
+
+			if ($sql !== "") {
+				$conn = openConn();
+				$rs = mysqli_query($conn, $sql);
+				closeConn($conn);
+			}
+			return $rs;
+		}
+
+		function upgradeSkill($skillId){
+			$skillList = $this->getSkill();
+			$skillListLength = count($skillList);
+			$rs = FALSE;
+			$skillSQL = "";
+			for ($i=0; $i < $skillListLength; $i++) {
+				// Validate selected skill id
+				if ($skillId === $skillList[$i]->getId()) {
+					// decrease money
+					$rs = $this->decreaseMoney($skillList[$i]->getUpgradeMoney());
+					if ($rs) {
+						// Update skill
+						$skillSQL = "UPDATE tm_char_skill SET damage = damage+" . $skillList[$i]->getUpgradeDamage();
+						$skillSQL .= " , upgrade_count = upgrade_count + 1 ";
+						$skillSQL .= "WHERE id = " . $skillId;
+
+						$rs = executeSQL($skillSQL);
+					}
+				}
+			}
+			return $rs;
+		}
+
+		function decreaseMoney($amount){
+			$moneySQL = "";
+			$rs = FALSE;
+			if ($this->getMoney() >= $amount) {
+				$moneySQL = "UPDATE tm_character SET money = money - " . $amount;
+				$moneySQL .= " WHERE id = " . $this->getId();
+			}
+			if ($moneySQL !== ""){
+				$rs = executeSQL($moneySQL);
+			}
+
+			return $rs;
+		}
+
+		function increaseMoney($amount){
+			$moneySQL = "";
+			$rs = FALSE;
+			if ($amount >= 0) {
+				$moneySQL = "UPDATE tm_character SET money = money + " . $amount;
+				$moneySQL .= " WHERE id = " . $this->getId();
+			}
+			if ($moneySQL !== ""){
+				$rs = executeSQL($moneySQL);
+			}
+
+			return $rs;
+		}
 		
 		function getObjectVars(){
 			$obj_vars = get_object_vars($this);
@@ -242,7 +332,7 @@
 			}
 			return $obj_vars;
 		}
-		
+
 		
 	}
 

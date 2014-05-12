@@ -4,8 +4,12 @@
 		return "'".$str."'" ;
 	}
 
-	function jsonError(){
-		return json_encode(array("status" => "ERROR"));
+	function jsonOk(){
+		return json_encode(array("status" => "OK"));
+	}
+
+	function jsonError($message = ""){
+		return json_encode(array("status" => "ERROR", "message" => $message));
 	}
 
 	function isNotEmpty($str){

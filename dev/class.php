@@ -310,6 +310,20 @@
 
 			return $rs;
 		}
+
+		function increaseMoney($amount){
+			$moneySQL = "";
+			$rs = FALSE;
+			if ($amount >= 0) {
+				$moneySQL = "UPDATE tm_character SET money = money + " . $amount;
+				$moneySQL .= " WHERE id = " . $this->getId();
+			}
+			if ($moneySQL !== ""){
+				$rs = executeSQL($moneySQL);
+			}
+
+			return $rs;
+		}
 		
 		function getObjectVars(){
 			$obj_vars = get_object_vars($this);
