@@ -569,6 +569,7 @@
 	class Skill extends TMClass{
 		protected $id;
 		protected $name;
+		protected $baseDamage;
 		protected $damage;
 		protected $accuracy;
 		protected $critical;
@@ -580,7 +581,7 @@
 		
 		function __construct($sid){
 			$conn = openConn();
-			$sql  = "SELECT s.id,sd.name,s.damage,sd.accuracy,sd.critical,sd.amount,sd.sp_usage,";
+			$sql  = "SELECT s.id,sd.name,sd.damage as basedamage,sd.accuracy,sd.critical,sd.amount,sd.sp_usage,";
 			$sql .= "sd.upgrade_damage,sd.upgrade_money,s.upgrade_count ";
 			$sql .= "from tm_char_skill s ";
 			$sql .= "left join tm_skill_data sd on sd.id=s.skill_id ";
@@ -590,13 +591,15 @@
 			while($row = mysqli_fetch_array($rs)){
 				$this->setId($row['id']);
 				$this->setName($row['name']);
-				$this->setDamage($row['damage']);
+				$this->setBaseDamage($row['basedamage']);
 				$this->setAccuracy($row['accuracy']);
 				$this->setCritical($row['critical']);
 				$this->setSpUsage($row['sp_usage']);
 				$this->setUpgradeDamage($row['upgrade_damage']);
 				$this->setUpgradeMoney($row['upgrade_money']);
-				$this->setUpgradeCount($row['upgrade_count']);						
+				$this->setUpgradeCount($row['upgrade_count']);	
+				
+				$this->setDamage($this->getBaseDamage()+($this->getUpgradeDamage()*$this->getUpgradeCount()));					
 			}
 
 			closeConn($conn);
@@ -618,8 +621,16 @@
 			return $this->name;
 		}
 		
-		function setDamage($str){
+		function setBaseDamage($str){
 			$this->damage = $str;
+		}
+		
+		function getBaseDamage(){
+			return $this->baseDamage;
+		}
+		
+		function setDamage($str){
+			$this->baseDamage = $str;
 		}
 		
 		function getDamage(){
