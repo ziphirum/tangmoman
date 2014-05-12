@@ -283,7 +283,8 @@
 				// Validate selected skill id
 				if ($skillId === $skillList[$i]->getId()) {
 					// decrease money
-					$rs = $this->decreaseMoney($skillList[$i]->getUpgradeMoney());
+					$upgradeCost = ($skillList[$i]->getUpgradeCount() + 1) * $skillList[$i]->getUpgradeMoney();
+					$rs = $this->decreaseMoney($upgradeCost);
 					if ($rs) {
 						// Update skill
 						$skillSQL = "UPDATE tm_char_skill SET damage = damage+" . $skillList[$i]->getUpgradeDamage();
