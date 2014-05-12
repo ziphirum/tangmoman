@@ -106,10 +106,11 @@
 				$this->setTurn($row['turn']);
 			}
 			
-			$sql  = "select id ";
-			$sql .= "from tm_char_skill ";
-			$sql .= "where character_id=".$this->getId()." ";
-			// $sql .= "order by damage desc ";
+			$sql  = "SELECT s.id,sd.damage+(sd.upgrade_damage*s.upgrade_count) as damage ";
+			$sql .= "from tm_char_skill s ";
+			$sql .= "left join tm_skill_data sd on sd.id=s.skill_id ";
+			$sql .= "where s.character_id=".$this->getId()." ";
+			$sql .= "order by damage desc ";
 			$rs = mysqli_query($conn,$sql);
 			$askill = array();
 			while($row = mysqli_fetch_array($rs)){
