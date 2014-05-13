@@ -598,6 +598,7 @@
 								);
 			
 			$retval = insertSQL($table,$insertArray);
+			return $retval;
 
 		}
 	}
