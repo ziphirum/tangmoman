@@ -5,8 +5,8 @@
 	include "database.php";
 	include "common.php";
 
-	// prepateStatement();
-	updateStatement();
+	prepateStatement();
+	// updateStatement();
 	// checkType();
 
 	function checkType() {
@@ -32,14 +32,15 @@
 		// $password = "test";
 		// $stmt->bind_param("ss", $username, $password);
 		$stmt->execute();
+		$rs = $stmt->get_result();
 
-		$stmt->store_result();
-		$stmt->bind_result($i, $u, $p);
+		// $stmt->store_result();
+		// $stmt->bind_result($i, $u, $p);
 
 		$result = array ("status" => "ERROR");
-		while($stmt->fetch())
+		while($row = $rs->fetch_array())
 		{
-			echo $i . $u . $p;
+			echo $row['id'] . $row['username'] . $row['password'];
 		}
 
 		$stmt->close();
