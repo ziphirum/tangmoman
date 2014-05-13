@@ -44,7 +44,7 @@
 		
 		$conn = openConn();
 		$stmt = $conn->prepare($sql);
-		call_user_func_array(array(&$stmt,"bind_param"), $aparm);
+		call_user_func_array(array(&$stmt,"bind_param"), refValues($aparm));
 		if($stmt->execute()){
 			$retval = TRUE;
 		}
