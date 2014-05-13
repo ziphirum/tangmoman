@@ -82,12 +82,15 @@
 			$sql .= "cd.name as character_data_name ";
 			$sql .= "from tm_character c ";
 			$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
-			$sql .= "where c.useraccount_id=".$userid;
-
-			$rs = mysqli_query($conn,$sql);
+			$sql .= "where c.useraccount_id=?";
+			$stmt = $conn->prepare($sql);
+			$stmt->bindParam(1, $userid);
+			$stmt->execute();
+			//$rs = mysqli_query($conn,$sql);
 			// closeConn($conn);
 
-			while($row = mysqli_fetch_array($rs)){
+			//while($row = mysqli_fetch_array($rs)){
+			while($row = $stmt->fetch()){
 				$this->setId($row['id']);
 				$this->setName($row['name']);
 				$this->setHp($row['hp']);			
