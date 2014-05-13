@@ -7,6 +7,10 @@
 
 	// prepateStatement();
 	checkType();
+	$dmg = 100;
+	$criticalDamage = 200;
+	echo $dmg += $dmg * rand(intval($criticalDamage/2),$criticalDamage)/100;
+	// echo rand(intval($criticalDamage/2),$criticalDamage);
 
 	function checkType() {
 		$data = array(1, 1., NULL, new stdClass, 'foo');

@@ -41,7 +41,7 @@
 		return json_encode($arr_obj_vars);
 	}
 	
-	function isRandom($n){
+	function isPossible($n){
 		$randNum = rand(0,99);
 		return $randNum<$n;
 	}

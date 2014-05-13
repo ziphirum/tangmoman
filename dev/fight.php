@@ -114,7 +114,7 @@
 		
 		$criticalRate = $skill->getCritical();
 		$criticalDamage = $char->getCritical();
-		if(isRandom($skill->getCritical())){
+		if(isPossible($skill->getCritical())){
 			$dmg += $dmg * rand(intval($criticalDamage/2),$criticalDamage)/100;
 			$dmg  = intval($dmg);
 			$detail = $char->getName()." attack with ".$skill->getName()." cause ".$dmg." critical damage ";
