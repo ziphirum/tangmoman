@@ -92,7 +92,7 @@
 			// closeConn($conn);
 
 			//while($row = mysqli_fetch_array($rs)){
-			while($row = $rs->fetch_assoc()){
+			while($row = $rs->fetch_array(MYSQLI_NUM)){
 				$this->setId($row['id']);
 				$this->setName($row['name']);
 				$this->setHp($row['hp']);			
