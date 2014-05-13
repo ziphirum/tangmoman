@@ -116,7 +116,8 @@
 			$sql .= "where s.character_id=? ";
 			$sql .= "order by damage desc ";
 			$stmt = $conn->prepare($sql);
-			$stmt->bind_param('i',$this->getId());
+			$charId = $this->getId();
+			$stmt->bind_param('i',$charId);
 			$stmt->execute();
 			$rs = $stmt->get_result();
 	
@@ -279,7 +280,8 @@
 			if ($sql !== "") {
 				$conn = openConn();
 				$stmt = $conn->prepare($sql);
-				$stmt->bind_param('i',$this->getId());
+				$charId = $this->getId();
+				$stmt->bind_param('i',$charId);
 				if($stmt->execute()){
 					$retval = TRUE;
 				}
