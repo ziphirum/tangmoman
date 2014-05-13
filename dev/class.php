@@ -84,7 +84,7 @@
 			$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
 			$sql .= "where c.useraccount_id=?";
 			$stmt = $conn->prepare($sql);
-			$stmt->bindParam(1, $userid);
+			$stmt->bind_param('i',$userid);
 			$stmt->execute();
 			//$rs = mysqli_query($conn,$sql);
 			// closeConn($conn);
