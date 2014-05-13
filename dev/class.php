@@ -86,8 +86,8 @@
 			$stmt = $conn->prepare($sql);
 			$stmt->bind_param('i',$userid);
 			$stmt->execute();
-			$stmt->store_result();
-			$rs = $stmt->use_result();
+			//$stmt->store_result();
+			$rs = $stmt->get_result();
 			//$rs = mysqli_query($conn,$sql);
 			// closeConn($conn);
 
