@@ -15,11 +15,14 @@
 			$conn = openConn();
 			$sql  = "SELECT id,username,name ";
 			$sql .= "from tm_useraccount ";
-			$sql .= "where id=".$userid;
+			$sql .= "where id=?";
 			
-			$rs = mysqli_query($conn,$sql);
-
-			while($row = mysqli_fetch_array($rs)){
+			$stmt = $conn->prepare($sql);
+			$stmt->bind_param('i',$userid);
+			$stmt->execute();
+			$rs = $stmt->get_result();
+			
+			while($row = $rs->fetch_assoc()){
 				$this->setId($row['id']);
 				$this->setUsername($row['username']);
 				$this->setName($row['name']);
@@ -86,12 +89,8 @@
 			$stmt = $conn->prepare($sql);
 			$stmt->bind_param('i',$userid);
 			$stmt->execute();
-			//$stmt->store_result();
 			$rs = $stmt->get_result();
-			//$rs = mysqli_query($conn,$sql);
-			// closeConn($conn);
-
-			//while($row = mysqli_fetch_array($rs)){
+			
 			while($row = $rs->fetch_assoc()){
 				$this->setId($row['id']);
 				$this->setName($row['name']);
@@ -114,11 +113,15 @@
 			$sql  = "SELECT s.id,sd.damage+(sd.upgrade_damage*s.upgrade_count) as damage ";
 			$sql .= "from tm_char_skill s ";
 			$sql .= "left join tm_skill_data sd on sd.id=s.skill_id ";
-			$sql .= "where s.character_id=".$this->getId()." ";
+			$sql .= "where s.character_id=? ";
 			$sql .= "order by damage desc ";
-			$rs = mysqli_query($conn,$sql);
+			$stmt = $conn->prepare($sql);
+			$stmt->bind_param('i',$this->getId());
+			$stmt->execute();
+			$rs = $stmt->get_result();
+	
 			$askill = array();
-			while($row = mysqli_fetch_array($rs)){
+			while($row = $rs->fetch_assoc()){			
 				$askill[] = new Skill($row['id']);		
 			}
 			$this->setSkill($askill);
@@ -264,17 +267,22 @@
 
 		function updateFight($status){
 			$sql = "";
+			$retval = FALSE;
 			if ($status === WIN) {
-				$sql = "UPDATE tm_character SET win = win+1 WHERE id = " . $this->getId();
+				$sql = "UPDATE tm_character SET win = win+1 WHERE id = ?";
 			} elseif ($status === DRAW) {
-				$sql = "UPDATE tm_character SET draw = draw+1 WHERE id = " . $this->getId();
+				$sql = "UPDATE tm_character SET draw = draw+1 WHERE id = ?";
 			}  elseif ($status === LOSE) {
-				$sql = "UPDATE tm_character SET lose = lose+1 WHERE id = " . $this->getId();
+				$sql = "UPDATE tm_character SET lose = lose+1 WHERE id = ?";
 			}
 
 			if ($sql !== "") {
 				$conn = openConn();
-				$rs = mysqli_query($conn, $sql);
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param('i',$this->getId());
+				if($stmt->execute()){
+					$retval = TRUE;
+				}
 				closeConn($conn);
 			}
 			return $rs;
@@ -283,7 +291,7 @@
 		function upgradeSkill($skillId){
 			$skillList = $this->getSkill();
 			$skillListLength = count($skillList);
-			$rs = FALSE;
+			$retval = FALSE;
 			$skillSQL = "";
 			for ($i=0; $i < $skillListLength; $i++) {
 				// Validate selected skill id
@@ -293,44 +301,55 @@
 					$rs = $this->decreaseMoney($upgradeCost);
 					if ($rs) {
 						// Update skill
-						$skillSQL = "UPDATE tm_char_skill SET damage = damage+" . $skillList[$i]->getUpgradeDamage();
+						$skillSQL = "UPDATE tm_char_skill SET damage = damage+? ";
 						$skillSQL .= " , upgrade_count = upgrade_count + 1 ";
-						$skillSQL .= "WHERE id = " . $skillId;
-
-						$rs = executeSQL($skillSQL);
+						$skillSQL .= "WHERE id = ?";
+						$stmt = $conn->prepare($skillSQL);
+						$stmt->bind_param('ii',$skillList[$i]->getUpgradeDamage(),$skillId);
+						if($stmt->execute()){
+							$retval = TRUE;
+						}
 					}
 					break;
 				}
 			}
-			return $rs;
+			return $retval;
 		}
 
 		function decreaseMoney($amount){
 			$moneySQL = "";
-			$rs = FALSE;
+			$retval = FALSE;
 			if ($this->getMoney() >= $amount) {
-				$moneySQL = "UPDATE tm_character SET money = money - " . $amount;
-				$moneySQL .= " WHERE id = " . $this->getId();
+				$moneySQL = "UPDATE tm_character SET money = money - ? ";
+				$moneySQL .= " WHERE id = ?";
 			}
 			if ($moneySQL !== ""){
-				$rs = executeSQL($moneySQL);
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param('ii',$amount,$this->getId());
+				if($stmt->execute()){
+					$retval = TRUE;
+				}
 			}
 
-			return $rs;
+			return $retval;
 		}
 
 		function increaseMoney($amount){
 			$moneySQL = "";
-			$rs = FALSE;
-			if ($amount >= 0) {
-				$moneySQL = "UPDATE tm_character SET money = money + " . $amount;
-				$moneySQL .= " WHERE id = " . $this->getId();
+			$retval = FALSE;
+			if ($this->getMoney() >= $amount) {
+				$moneySQL = "UPDATE tm_character SET money = money + ? ";
+				$moneySQL .= " WHERE id = ?";
 			}
 			if ($moneySQL !== ""){
-				$rs = executeSQL($moneySQL);
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param('ii',$amount,$this->getId());
+				if($stmt->execute()){
+					$retval = TRUE;
+				}
 			}
 
-			return $rs;
+			return $retval;
 		}
 		
 		function getObjectVars(){
@@ -376,12 +395,14 @@
 				$sql .= "FROM tm_battle_log btl ";
 				$sql .= "left join tm_character catk on btl.attacker_id = catk.useraccount_id";
 				$sql .= "left join tm_character cdef on btl.defender_id = cdef.useraccount_id";
-				$sql .= "where id=" . $getId;
+				$sql .= "where id=?";
+										
+				$stmt = $conn->prepare($sql);
+				$stmt->bind_param('i',$getid);
+				$stmt->execute();
+				$rs = $stmt->get_result();
 				
-							
-				$rs = mysqli_query($conn,$sql);
-	
-				while($row = mysqli_fetch_array($rs)){
+				while($row = $rs->fetch_assoc()){
 					$this->setId($row['id']);
 					$this->setName($row['name']);
 					$this->setDetail(explode(NEW_LINE,$row['detail']));
@@ -557,18 +578,26 @@
 			$defMaxSp = $this->getDefenderMaxSp();
 			$time = $this->getTime();
 
-			$conn = openConn();
-			$sql = "INSERT INTO tm_battle_log(detail, turn, result, attacker_id, defender_id, attacker_hp, defender_hp, attacker_sp, defender_sp, attacker_max_hp, defender_max_hp, attacker_max_sp, defender_max_sp, time) ";
-			$sql .= "VALUES(" . sqlStr(implode(NEW_LINE,$detail)) .",".  sqlStr($turn) .",". sqlStr($result) .",". sqlStr($atkId) .",";
-			$sql .= sqlStr($defId) .",". sqlStr($atkHp) .",". sqlStr($defHp) .",". sqlStr($atkSp) .",". sqlStr($defSp) .",";
-			$sql .= sqlStr($atkMaxHp) .",". sqlStr($defMaxHp) .",". sqlStr($atkMaxSp) .",". sqlStr($defMaxSp) .",";
-			$sql .= sqlStr($time) . ")";
 			
-			// echo $sql;
-
-			$rs = mysqli_query($conn, $sql);
-
-			closeConn($conn);
+			$table = "tm_battle_log";
+			$insertArray = array(
+								array("detail",implode(NEW_LINE,$detail),"s"),
+								array("turn",$turn,"i"),
+								array("result",$result,"i"),
+								array("attacker_id",$atkId,"i"),
+								array("defender_id",$defId,"i"),
+								array("attacker_hp",$atkHp,"i"),
+								array("defender_hp",$defHp,"i"),
+								array("attacker_sp",$atkSp,"i"),
+								array("defender_sp",$defSp,"i"),
+								array("attacker_max_hp",$atkMaxHp,"i"),
+								array("defender_max_hp",$defMaxHp,"i"),
+								array("attacker_max_sp",$atkMaxSp,"i"),
+								array("defender_max_sp",$defMaxSp,"i"),
+								array("time",$time,"s"),
+								);
+			
+			$retval = insertSQL($table,$insertArray);
 
 		}
 	}
@@ -592,11 +621,14 @@
 			$sql .= "sd.upgrade_damage,sd.upgrade_money,s.upgrade_count ";
 			$sql .= "from tm_char_skill s ";
 			$sql .= "left join tm_skill_data sd on sd.id=s.skill_id ";
-			$sql .= "where s.id=".$sid;
+			$sql .= "where s.id=?";
 
-			$rs = mysqli_query($conn,$sql);
-
-			while($row = mysqli_fetch_array($rs)){
+			$stmt = $conn->prepare($sql);
+			$stmt->bind_param('i',$sid);
+			$stmt->execute();
+			$rs = $stmt->get_result();
+			
+			while($row = $rs->fetch_assoc()){
 				$this->setId($row['id']);
 				$this->setName($row['name']);
 				$this->setBaseDamage($row['basedamage']);
