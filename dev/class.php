@@ -86,11 +86,13 @@
 			$stmt = $conn->prepare($sql);
 			$stmt->bind_param('i',$userid);
 			$stmt->execute();
+			$stmt->store_result();
+			$rs = $stmt->get_result();
 			//$rs = mysqli_query($conn,$sql);
 			// closeConn($conn);
 
 			//while($row = mysqli_fetch_array($rs)){
-			while($row = $stmt->fetch()){
+			while($row = $rs->fetch_assoc()){
 				$this->setId($row['id']);
 				$this->setName($row['name']);
 				$this->setHp($row['hp']);			
