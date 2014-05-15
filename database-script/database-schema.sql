@@ -15,6 +15,10 @@ CREATE TABLE tm_character_data (
 CREATE TABLE tm_character (
      id INT NOT NULL AUTO_INCREMENT,
      name CHAR(30) NOT NULL,
+     money INT NOT NULL DEFAULT 0,
+     last_connection_time DATETIME,
+     energy INT NOT NULL DEFAULT 0, -- use in every action
+     ap INT NOT NULL, -- ability point
      hp INT NOT NULL,
      sp INT NOT NULL,
      max_hp INT NOT NULL,
@@ -28,6 +32,7 @@ CREATE TABLE tm_character (
      accuracy INT DEFAULT 0,
      evasion INT DEFAULT 0,
      critical INT DEFAULT 0,
+     money INT DEFAULT 0,
      PRIMARY KEY (id)
 );
 

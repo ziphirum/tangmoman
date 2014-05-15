@@ -5,9 +5,14 @@
 	include "database.php";
 	include "common.php";
 
-	prepateStatement();
+	// prepateStatement();
 	// updateStatement();
 	// checkType();
+
+	function insert() {
+		$table = "test";
+		
+	}
 
 	function checkType() {
 		$data = array(1, 1., NULL, new stdClass, 'foo');
