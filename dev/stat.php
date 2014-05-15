@@ -1,16 +1,11 @@
 <?php
-
-	include "database.php";
-	include "common.php";
-	include "class.php";
-	include "session.php";
 	
 	$userid = $_GET["id"];
 	if(isEmpty($userid)){
 		$userid = getLoginSession();
 	}
 	$conn = openConn();
-	$sql = "SELECT *  FROM tm_useraccount WHERE id= ".sqlStr($userid);
+	$sql = "SELECT * FROM tm_useraccount WHERE id= ".sqlStr($userid);
 
 	$result = mysqli_query($conn, $sql);
 	$userId = "";
@@ -20,11 +15,11 @@
 	closeConn($conn);
 	
 	if(isEmpty($userId) || isEmpty(getLoginSession())){
-		echo jsonError();
+		echo jsonError(ERROR_NO_SESSION);
 	}else{
 		$user = new UserAccount($userId);
 		$char = new Character($userId);
-		echo classToJson("OK",$user, $char);
+		echo classToJson("OK", $user, $char);
 	}
 	
 

@@ -16,5 +16,18 @@
 	define("MAX_TURN", 999);
 
 	define("DAMAGE_DEVIATION", 0.1);
+	
+	// TMI ACTION
+	define("TMI_LOGIN", "login");
+	define("TMI_LOGOUT", "logout");
+	define("TMI_TOWN_LIST", "town-list");
+	define("TMI_STAT", "stat");
+	define("TMI_UPGRADE_SKILL", "upgrade-skill");
+	
+	// JSON ERROR
+	define("ERROR_NO_SESSION", array(1,"No Session, Need to login"));
+	define("ERROR_NO_TMI", array(2,"No Action to Perform"));
+	define("ERROR_FIGHT", array(3,"Error when Attacking"));
+	define("ERROR_UPGRADE_SKILL", array(4,"Error when Upgrading Skill"));
 
 ?>

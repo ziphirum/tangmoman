@@ -8,8 +8,8 @@
 		return json_encode(array("status" => "OK"));
 	}
 
-	function jsonError($message = ""){
-		return json_encode(array("status" => "ERROR", "message" => $message));
+	function jsonError($err = array("",""), $msg = ""){
+		return json_encode(array("status" => "ERROR", "code" => $err[0], "message" => $err[1], "additional" => $msg));
 	}
 
 	function isNotEmpty($str){

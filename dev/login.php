@@ -1,10 +1,5 @@
 <?php
 	
-	include "session.php";
-	include "database.php";
-	include "common.php";
-	include "class.php";
-	
 	function login($username, $password) {
 		$conn = openConn();
 		$stmt = $conn->prepare("SELECT id FROM tm_useraccount WHERE username=? and password=?");

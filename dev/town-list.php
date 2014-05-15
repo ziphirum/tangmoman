@@ -1,10 +1,13 @@
 <?php
 	
-	include 'database.php';
-	include 'class.php';
-	include "session.php";
-	include "common.php";
-
+	$userId = getLoginSession();
+	if(isEmpty($userId)){
+		echo jsonError(ERROR_NO_SESSION);
+	}else{
+		$response = townList($userId);
+		echo $response;
+	}
+	
 	function townList($userid){
 		$conn = openConn();
 		$sql  = "select id ";
@@ -41,14 +44,6 @@
 		$arr_json_return[TownList] = $arr_obj_vars;
 		closeConn($conn);
 		return json_encode($arr_json_return);
-	}
-	
-	$userId = getLoginSession();
-	if(isEmpty($userId)){
-		echo jsonError();
-	}else{
-		$response = townList($userId);
-		echo $response;
 	}
 	
 ?>
