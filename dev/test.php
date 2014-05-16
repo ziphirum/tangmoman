@@ -1,5 +1,6 @@
 <?php
-	
+	// phpinfo();
+
 	include "class.php";
 	include "constants.php";
 	include "database.php";

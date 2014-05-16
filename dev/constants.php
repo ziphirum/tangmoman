@@ -25,9 +25,17 @@
 	define("TMI_UPGRADE_SKILL", "upgrade-skill");
 	
 	// JSON ERROR
-	define("ERROR_NO_SESSION", array(1,"No Session, Need to login"));
-	define("ERROR_NO_TMI", array(2,"No Action to Perform"));
-	define("ERROR_FIGHT", array(3,"Error when Attacking"));
-	define("ERROR_UPGRADE_SKILL", array(4,"Error when Upgrading Skill"));
+	// define("ERROR_NO_SESSION", array(1,"No Session, Need to login"));
+	// define("ERROR_NO_TMI", array(2,"No Action to Perform"));
+	// define("ERROR_FIGHT", array(3,"Error when Attacking"));
+	// define("ERROR_UPGRADE_SKILL", array(4,"Error when Upgrading Skill"));
+	
+	// Constant Cannot be array
+	static $ERROR = array(
+		"NO_SESSION" => array(1,"No Session, Need to login"),
+		"NO_TMI" => array(1,"No Session, Need to login"),
+		"FIGHT" => array(1,"No Session, Need to login"),
+		"ERROR_UPGRADE_SKILL" = >array(1,"No Session, Need to login")
+	);
 
 ?>
