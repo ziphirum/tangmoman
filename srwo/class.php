@@ -72,12 +72,12 @@
 		protected $lose;
 		protected $draw;
 		protected $money;
-		protected $turn;
+		protected $energy;
 		protected $skill = array();
 		
 		function __construct($userid){
 			$conn = openConn();
-			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,c.win,c.lose,c.draw,c.money,c.turn, ";
+			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,c.win,c.lose,c.draw,c.money,c.energy, ";
 			$sql .= "c.defense,c.accuracy,c.evasion,c.critical,";
 			$sql .= "cd.name as character_data_name ";
 			$sql .= "from tm_character c ";
