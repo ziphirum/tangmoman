@@ -340,6 +340,7 @@
 			}
 			if ($moneySQL !== ""){
 				$conn = openConn();
+				$stmt = $conn->prepare($moneySQL);
 				$charId = $this->getId();
 				$stmt->bind_param('ii',$amount,$charId);
 				if($stmt->execute()){
@@ -381,6 +382,7 @@
 			}
 			if ($energySQL !== ""){
 				$conn = openConn();
+				$stmt = $conn->prepare($energySQL);
 				$charId = $this->getId();
 				$stmt->bind_param('ii',$amount,$charId);
 				if($stmt->execute()){
