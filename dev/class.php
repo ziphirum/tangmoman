@@ -743,7 +743,6 @@
 				$this->setUpgradeCount($row['upgrade_count']);	
 				
 				$dmg = intval($this->getBaseDamage())+(intval($this->getUpgradeDamage())*intval($this->getUpgradeCount()));
-				echo $dmg;
 				$this->setDamage($dmg);					
 			}
 
@@ -775,7 +774,7 @@
 		}
 		
 		function setDamage($str){
-			$this->Damage = $str;
+			$this->damage = $str;
 		}
 		
 		function getDamage(){
