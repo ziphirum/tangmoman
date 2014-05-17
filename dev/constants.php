@@ -39,7 +39,8 @@
 		"NO_TMI" => array(2,"No Action to Perform"),
 		"NOT_FOUND_TMI" => array(3,"Action not found"),
 		"FIGHT" => array(4,"Error when Attacking"),
-		"ERROR_UPGRADE_SKILL" => array(5,"Error when Upgrading Skill")
+		"ENERGY" => array(5,"Not Enough Energy"),
+		"ERROR_UPGRADE_SKILL" => array(6,"Error when Upgrading Skill")
 	);
 	
 
