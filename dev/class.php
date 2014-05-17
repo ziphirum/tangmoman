@@ -110,6 +110,8 @@
 				$this->setEnergy($row['energy']);
 			}
 			
+			$stmt->close();
+			
 			$sql  = "SELECT s.id,sd.damage+(sd.upgrade_damage*s.upgrade_count) as damage ";
 			$sql .= "from tm_char_skill s ";
 			$sql .= "left join tm_skill_data sd on sd.id=s.skill_id ";
@@ -379,8 +381,8 @@
 				$addEnergy += intval($minute/MINUTE_PER_ENERGY);
 				$addTime = $addEnergy*MINUTE_PER_ENERGY;
 				
-				$stmt1->store_result();
-				
+				$stmt1->close();
+								
 				$energy += $addEnergy;
 				$energy  = min($energy,MAX_ENERGY);
 				
