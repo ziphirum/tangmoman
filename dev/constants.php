@@ -24,6 +24,7 @@
 	define("TMI_LOGOUT", "logout");
 	define("TMI_TOWN_LIST", "town-list");
 	define("TMI_STAT", "stat");
+	define("TMI_FIGHT", "fight");
 	define("TMI_UPGRADE_SKILL", "upgrade-skill");
 		
 	// JSON ERROR

@@ -22,6 +22,8 @@
 			include "town-list.php";
 		}else if($tmi === TMI_STAT){
 			include "stat.php";
+		}else if($tmi === TMI_FIGHT){
+			include "fight.php";
 		}else if($tmi === TMI_UPGRADE_SKILL){
 			include "upgrade-skill.php";
 		}else{
