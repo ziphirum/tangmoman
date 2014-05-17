@@ -22,8 +22,7 @@
 		$defender = new Character($defenderid);
 		
 		if(checkEnergy($attacker,5)){
-			echo "rr";
-			fight($attacker, $defender, $battlelog);
+			fight($attacker, $defender, $battleLog);
 			echo classToJson("OK", $battleLog);
 		}else{
 			echo jsonError($ERROR["ENERGY"]);
@@ -31,7 +30,7 @@
 		//$battleLog = fight($attacker, $defender, $battlelog);
 	}
 
-	function fight(&$attacker, &$defender, &$battlelog){
+	function fight(&$attacker, &$defender, &$battleLog){
 
 		$attacker->decreaseEnergy(5);
 
