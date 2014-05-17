@@ -46,8 +46,8 @@
 		return $randNum<$n;
 	}
 	
-	function checkEnergy($obj,$amount){
-		return ($obj->getEnergy())>=$amount;
+	function checkEnergy($character,$amount){
+		return ($character->getEnergy())>=$amount;
 	}
 	
 

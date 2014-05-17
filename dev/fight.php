@@ -32,8 +32,6 @@
 
 	function fight(&$attacker, &$defender, &$battleLog){
 
-		$attacker->decreaseEnergy(5);
-
 		$battleLog->setAttackerName($attacker->getName());
 		$battleLog->setDefenderName($defender->getName());
 		
@@ -92,7 +90,9 @@
 		$battleLog->setDefenderHp(intval($defender->getHp()));
 		$battleLog->setDefenderSp(intval($defender->getSp()));
 		$battleLog->insertLog();
-
+		
+		$attacker->decreaseEnergy(5);
+		
 		return $battleLog;
 	}
 	

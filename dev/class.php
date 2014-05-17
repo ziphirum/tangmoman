@@ -442,12 +442,13 @@
 				$updConnSQL = "UPDATE tm_character SET ";
 				$updConnSQL .= "last_connection_time = TIMESTAMPADD(MINUTE,?,last_connection_time), energy = ? ";
 				$updConnSQL .= " WHERE id = ?";
-			
+				
 				$stmt2 = $conn->prepare($updConnSQL);
 				$stmt2->bind_param('iii',$addTime,$energy,$userid);
 				if($stmt2->execute()){
 					$retval = TRUE;
 				}
+						
 				closeConn($conn);
 			}
 
