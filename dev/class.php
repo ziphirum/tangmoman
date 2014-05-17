@@ -359,27 +359,28 @@
 		public static function updateConnectionTime($userid = ""){
 			$updConnSQL = "";
 			$sql = "";
-			$minute = 0;
 			$retval = FALSE;
 			
 			if (isNotEmpty($userid)) {
-				$sql  = "select TIMESTAMPDIFF(MINUTE,last_connection_time, NOW()) ";
+				$sql  = "select TIMESTAMPDIFF(MINUTE,last_connection_time, NOW()), energy ";
 				$sql .= "from tm_character ";
 				$sql .= "where useraccount_id=? ";
 				$stmt = $conn->prepare($sql);
 				$stmt->bind_param('i',$userid);
 				$stmt->execute();
-				$stmt->bind_result($minute);
+				$stmt->bind_result($minute,$energy);
 				$stmt->fetch();
 				
-				$energy = intval($minute/MINUTE_PER_ENERGY);
-				$addTime = $energy*MINUTE_PER_ENERGY;
+				$addEnergy += intval($minute/MINUTE_PER_ENERGY);
+				$addTime = $addEnergy*MINUTE_PER_ENERGY;
+				
+				$energy += $addEnergy;
+				$energy  = min($energy,MAX_ENERGY);
 				
 				$updConnSQL = "UPDATE tm_character SET ";
-				$updConnSQL = "last_connection_time = TIMESTAMPADD(MINUTE,?,last_connection_time), energy = energy + ? ";
+				$updConnSQL .= "last_connection_time = TIMESTAMPADD(MINUTE,?,last_connection_time), energy = ? ";
 				$updConnSQL .= " WHERE id = ?";
-			}
-			if ($updConnSQL !== ""){
+			
 				$stmt = $conn->prepare($updConnSQL);
 				$stmt->bind_param('iii',$addTime,$energy,$userid);
 				if($stmt->execute()){
