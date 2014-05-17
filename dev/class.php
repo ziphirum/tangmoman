@@ -714,6 +714,7 @@
 		protected $accuracy;
 		protected $critical;
 		protected $spUsage;
+		protected $amount;
 		protected $upgradeDamage;
 		protected $upgradeMoney;
 		protected $upgradeCount;
@@ -738,6 +739,7 @@
 				$this->setAccuracy($row['accuracy']);
 				$this->setCritical($row['critical']);
 				$this->setSpUsage($row['sp_usage']);
+				$this->setAmount($row['amount']);
 				$this->setUpgradeDamage($row['upgrade_damage']);
 				$this->setUpgradeMoney($row['upgrade_money']);
 				$this->setUpgradeCount($row['upgrade_count']);	
@@ -803,6 +805,14 @@
 		
 		function getSpUsage(){
 			return $this->spUsage;
+		}
+		
+		function setAmount($str){
+			$this->amount = $str;
+		}
+		
+		function getAmount(){
+			return $this->amount;
 		}
 		
 		function setUpgradeDamage($str){
