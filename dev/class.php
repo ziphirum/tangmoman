@@ -742,7 +742,9 @@
 				$this->setUpgradeMoney($row['upgrade_money']);
 				$this->setUpgradeCount($row['upgrade_count']);	
 				
-				$this->setDamage(intval($this->getBaseDamage())+(intval($this->getUpgradeDamage())*intval($this->getUpgradeCount())));					
+				$dmg = intval($this->getBaseDamage())+(intval($this->getUpgradeDamage())*intval($this->getUpgradeCount()));
+				echo $dmg;
+				$this->setDamage($dmg);					
 			}
 
 			closeConn($conn);
