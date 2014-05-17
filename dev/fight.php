@@ -21,7 +21,7 @@
 		$attacker = new Character($attackerid);
 		$defender = new Character($defenderid);
 		
-		if(checkEnergy($attacker,5)){
+		if(checkEnergy($attacker,FIGHT_ENERGY)){
 			fight($attacker, $defender, $battleLog);
 			echo classToJson("OK", $battleLog);
 		}else{
@@ -91,7 +91,7 @@
 		$battleLog->setDefenderSp(intval($defender->getSp()));
 		$battleLog->insertLog();
 		
-		$attacker->decreaseEnergy(5);
+		$attacker->decreaseEnergy(FIGHT_ENERGY);
 		
 		return $battleLog;
 	}

@@ -17,8 +17,11 @@
 
 	define("DAMAGE_DEVIATION", 0.1);
 	
+	// Energy
 	define("MINUTE_PER_ENERGY",2);
-	define("MAX_ENERGY",50);
+	define("MAX_ENERGY",500);
+	define("FIGHT_ENERGY",2);
+	
 	// TMI ACTION
 	define("TMI_LOGIN", "login");
 	define("TMI_LOGOUT", "logout");
