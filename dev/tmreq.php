@@ -8,7 +8,9 @@
 	
 	$tmi = $_GET["tmi"];
 	
-	if(isEmpty(getLoginSession()) && $tmi !== TMI_LOGIN){
+	if(isEmpty($tmi)){
+		echo jsonError($ERROR["NO_TMI"]);
+	}else if(isEmpty(getLoginSession()) && $tmi !== TMI_LOGIN){
 		echo jsonError($ERROR["NO_SESSION"]);
 	}else{
 		Character::updateConnectionTime(getLoginSession());
@@ -23,7 +25,7 @@
 		}else if($tmi === TMI_UPGRADE_SKILL){
 			include "upgrade-skill.php";
 		}else{
-			echo jsonError($ERROR["NO_TMI"]);
+			echo jsonError($ERROR["NOT_FOUND_TMI"]);
 		}
 	}
 ?>
