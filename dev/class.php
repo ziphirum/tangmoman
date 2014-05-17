@@ -354,13 +354,54 @@
 		function increaseMoney($amount){
 			$moneySQL = "";
 			$retval = FALSE;
-			if ($this->getMoney() >= $amount) {
-				$moneySQL = "UPDATE tm_character SET money = money + ? ";
-				$moneySQL .= " WHERE id = ?";
-			}
+			
+			$moneySQL = "UPDATE tm_character SET money = money + ? ";
+			$moneySQL .= " WHERE id = ?";
+			
 			if ($moneySQL !== ""){
 				$conn = openConn();
 				$stmt = $conn->prepare($moneySQL);
+				$charId = $this->getId();
+				$stmt->bind_param('ii',$amount,$charId);
+				if($stmt->execute()){
+					$retval = TRUE;
+				}
+				closeConn($conn);
+			}
+
+			return $retval;
+		}
+		
+		function decreaseEnergy($amount){
+			$energySQL = "";
+			$retval = FALSE;
+			if ($this->getEnergy() >= $amount) {
+				$energySQL = "UPDATE tm_character SET energy = energy - ? ";
+				$energySQL .= " WHERE id = ?";
+			}
+			if ($energySQL !== ""){
+				$conn = openConn();
+				$charId = $this->getId();
+				$stmt->bind_param('ii',$amount,$charId);
+				if($stmt->execute()){
+					$retval = TRUE;
+				}
+				closeConn($conn);
+			}
+
+			return $retval;
+		}
+
+		function increaseEnergy($amount){
+			$energySQL = "";
+			$retval = FALSE;
+			
+			$energySQL = "UPDATE tm_character SET energy = energy + ? ";
+			$energySQL .= " WHERE id = ?";
+			
+			if ($energySQL !== ""){
+				$conn = openConn();
+				$stmt = $conn->prepare($energySQL);
 				$charId = $this->getId();
 				$stmt->bind_param('ii',$amount,$charId);
 				if($stmt->execute()){

@@ -14,18 +14,25 @@
 			echo jsonError($ERROR["FIGHT"]);
 		}		
 	} else {
-		$battleLog = fight($attackerid,$defenderid);
-		echo classToJson("OK", $battleLog);
-	}
-
-	function fight($attackerid, $defenderid){
-
 		$battleLog = new BattleLog();
 		$battleLog->setAttackerId($attackerid);
 		$battleLog->setDefenderId($defenderid);
 		
 		$attacker = new Character($attackerid);
 		$defender = new Character($defenderid);
+		
+		if(checkEnergy($attacker)){
+			fight($attacker, $defender, $battlelog)
+		}else{
+			echo jsonError($ERROR["ENERGY"]);
+		}
+		//$battleLog = fight($attacker, $defender, $battlelog);
+		echo classToJson("OK", $battleLog);
+	}
+
+	function fight(&$attacker, &$defender, &$battlelog){
+
+		$attacker->decreaseEnergy(5);
 
 		$battleLog->setAttackerName($attacker->getName());
 		$battleLog->setDefenderName($defender->getName());

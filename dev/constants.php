@@ -38,7 +38,7 @@
 		"NO_SESSION" => array(1,"No Session, Need to login"),
 		"NO_TMI" => array(2,"No Action to Perform"),
 		"NOT_FOUND_TMI" => array(3,"Action not found"),
-		"FIGHT" => array(4,"No Error when Attacking"),
+		"FIGHT" => array(4,"Error when Attacking"),
 		"ERROR_UPGRADE_SKILL" => array(5,"Error when Upgrading Skill")
 	);
 	
