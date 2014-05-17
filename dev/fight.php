@@ -21,13 +21,13 @@
 		$attacker = new Character($attackerid);
 		$defender = new Character($defenderid);
 		
-		if(checkEnergy($attacker)){
-			fight($attacker, $defender, $battlelog)
+		if(checkEnergy($attacker,5)){
+			fight($attacker, $defender, $battlelog);
+			echo classToJson("OK", $battleLog);
 		}else{
 			echo jsonError($ERROR["ENERGY"]);
 		}
 		//$battleLog = fight($attacker, $defender, $battlelog);
-		echo classToJson("OK", $battleLog);
 	}
 
 	function fight(&$attacker, &$defender, &$battlelog){
