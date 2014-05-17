@@ -379,6 +379,8 @@
 				$addEnergy += intval($minute/MINUTE_PER_ENERGY);
 				$addTime = $addEnergy*MINUTE_PER_ENERGY;
 				
+				$stmt1->store_result();
+				
 				$energy += $addEnergy;
 				$energy  = min($energy,MAX_ENERGY);
 				
