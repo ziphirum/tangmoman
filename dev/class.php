@@ -307,7 +307,8 @@
 						$skillSQL .= " , upgrade_count = upgrade_count + 1 ";
 						$skillSQL .= "WHERE id = ?";
 						$stmt = $conn->prepare($skillSQL);
-						$stmt->bind_param('ii',$skillList[$i]->getUpgradeDamage(),$skillId);
+						$upgradeDamage = $skillList[$i]->getUpgradeDamage();
+						$stmt->bind_param('ii',$upgradeDamage,$skillId);
 						if($stmt->execute()){
 							$retval = TRUE;
 						}
@@ -326,8 +327,8 @@
 				$moneySQL .= " WHERE id = ?";
 			}
 			if ($moneySQL !== ""){
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param('ii',$amount,$this->getId());
+				$charId = $this->getId();
+				$stmt->bind_param('ii',$amount,$charId);
 				if($stmt->execute()){
 					$retval = TRUE;
 				}
@@ -344,8 +345,43 @@
 				$moneySQL .= " WHERE id = ?";
 			}
 			if ($moneySQL !== ""){
+				$stmt = $conn->prepare($moneySQL);
+				$charId = $this->getId();
+				$stmt->bind_param('ii',$amount,$charId);
+				if($stmt->execute()){
+					$retval = TRUE;
+				}
+			}
+
+			return $retval;
+		}
+		
+		public static function updateConnectionTime($userid = ""){
+			$updConnSQL = "";
+			$sql = "";
+			$minute = 0;
+			$retval = FALSE;
+			
+			if (isNotEmpty($userid)) {
+				$sql  = "select TIMESTAMPDIFF(MINUTE,last_connection_time, NOW()) ";
+				$sql .= "from tm_character ";
+				$sql .= "where useraccount_id=? ";
 				$stmt = $conn->prepare($sql);
-				$stmt->bind_param('ii',$amount,$this->getId());
+				$stmt->bind_param('i',$userid);
+				$stmt->execute();
+				$stmt->bind_result($minute);
+				$stmt->fetch();
+				
+				$energy = intval($minute/MINUTE_PER_ENERGY);
+				$addTime = $energy*MINUTE_PER_ENERGY;
+				
+				$updConnSQL = "UPDATE tm_character SET ";
+				$updConnSQL = "last_connection_time = TIMESTAMPADD(MINUTE,?,last_connection_time), energy = energy + ? ";
+				$updConnSQL .= " WHERE id = ?";
+			}
+			if ($updConnSQL !== ""){
+				$stmt = $conn->prepare($updConnSQL);
+				$stmt->bind_param('iii',$addTime,$energy,$userid);
 				if($stmt->execute()){
 					$retval = TRUE;
 				}

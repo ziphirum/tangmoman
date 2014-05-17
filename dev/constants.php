@@ -17,6 +17,7 @@
 
 	define("DAMAGE_DEVIATION", 0.1);
 	
+	define("MINUTE_PER_ENERGY",2);
 	// TMI ACTION
 	define("TMI_LOGIN", "login");
 	define("TMI_LOGOUT", "logout");
