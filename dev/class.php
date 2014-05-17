@@ -379,6 +379,7 @@
 			if ($this->getEnergy() >= $amount) {
 				$energySQL = "UPDATE tm_character SET energy = energy - ? ";
 				$energySQL .= " WHERE id = ?";
+				echo $energySQL;
 			}
 			if ($energySQL !== ""){
 				$conn = openConn();
