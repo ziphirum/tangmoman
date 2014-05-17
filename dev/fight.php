@@ -22,6 +22,7 @@
 		$defender = new Character($defenderid);
 		
 		if(checkEnergy($attacker,5)){
+			echo "rr";
 			fight($attacker, $defender, $battlelog);
 			echo classToJson("OK", $battleLog);
 		}else{
