@@ -713,7 +713,6 @@
 		protected $damage;
 		protected $accuracy;
 		protected $critical;
-		protected $amount;
 		protected $spUsage;
 		protected $upgradeDamage;
 		protected $upgradeMoney;
@@ -766,7 +765,7 @@
 		}
 		
 		function setBaseDamage($str){
-			$this->damage = $str;
+			$this->baseDamage = $str;
 		}
 		
 		function getBaseDamage(){
@@ -774,7 +773,7 @@
 		}
 		
 		function setDamage($str){
-			$this->baseDamage = $str;
+			$this->Damage = $str;
 		}
 		
 		function getDamage(){
@@ -795,14 +794,6 @@
 		
 		function getCritical(){
 			return $this->critical;
-		}
-		
-		function setAmount($str){
-			$this->amount = $str;
-		}
-		
-		function getAmount(){
-			return $this->amount;
 		}
 		
 		function setSpUsage($str){
