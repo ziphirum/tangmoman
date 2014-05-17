@@ -1,6 +1,7 @@
 <?php
 
 	include "database.php";
+	include "constants.php";
 	include "common.php";
 	include "class.php";
 	include "session.php";
