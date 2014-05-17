@@ -327,11 +327,13 @@
 				$moneySQL .= " WHERE id = ?";
 			}
 			if ($moneySQL !== ""){
+				$conn = openConn();
 				$charId = $this->getId();
 				$stmt->bind_param('ii',$amount,$charId);
 				if($stmt->execute()){
 					$retval = TRUE;
 				}
+				closeConn($conn);
 			}
 
 			return $retval;
@@ -345,12 +347,14 @@
 				$moneySQL .= " WHERE id = ?";
 			}
 			if ($moneySQL !== ""){
+				$conn = openConn();
 				$stmt = $conn->prepare($moneySQL);
 				$charId = $this->getId();
 				$stmt->bind_param('ii',$amount,$charId);
 				if($stmt->execute()){
 					$retval = TRUE;
 				}
+				closeConn($conn);
 			}
 
 			return $retval;
@@ -362,6 +366,7 @@
 			$retval = FALSE;
 			
 			if (isNotEmpty($userid)) {
+				$conn = openConn();
 				$sql  = "select TIMESTAMPDIFF(MINUTE,last_connection_time, NOW()), energy ";
 				$sql .= "from tm_character ";
 				$sql .= "where useraccount_id=? ";
@@ -386,6 +391,7 @@
 				if($stmt->execute()){
 					$retval = TRUE;
 				}
+				closeConn($conn);
 			}
 
 			return $retval;
