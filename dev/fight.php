@@ -3,11 +3,10 @@
 	$attackerid = getLoginSession();
 	$defenderid = intval($_GET["target"]);
 	
-	echo $defenderid;
-	if (isEmpty($attackerid) || isEmpty($defenderid) || $attackerid === $defenderid) {
+	if (isEmpty($attackerid) || isEmpty($defenderid) || $attackerid === $defenderid || $defenderid <= 0) {
 		if(isEmpty($attackerid)){
 			echo jsonError($ERROR["NO_SESSION"]);
-		}elseif(isEmpty($defenderid)){
+		}elseif(isEmpty($defenderid) || $defenderid <= 0){
 			echo jsonError($ERROR["FIGHT"], "No Enemy Selected");
 		}elseif($attackerid === $defenderid){
 			echo jsonError($ERROR["FIGHT"], "Cannot Attack Yourself");
