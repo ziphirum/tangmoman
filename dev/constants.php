@@ -23,7 +23,7 @@
 	define("TMI_TOWN_LIST", "town-list");
 	define("TMI_STAT", "stat");
 	define("TMI_UPGRADE_SKILL", "upgrade-skill");
-	
+		
 	// JSON ERROR
 	// define("ERROR_NO_SESSION", array(1,"No Session, Need to login"));
 	// define("ERROR_NO_TMI", array(2,"No Action to Perform"));
@@ -35,7 +35,8 @@
 		"NO_SESSION" => array(1,"No Session, Need to login"),
 		"NO_TMI" => array(1,"No Session, Need to login"),
 		"FIGHT" => array(1,"No Session, Need to login"),
-		"ERROR_UPGRADE_SKILL" = >array(1,"No Session, Need to login")
+		"ERROR_UPGRADE_SKILL" => array(1,"No Session, Need to login")
 	);
+	
 
 ?>

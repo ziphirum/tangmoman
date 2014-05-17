@@ -75,12 +75,12 @@
 		protected $lose;
 		protected $draw;
 		protected $money;
-		protected $turn;
+		protected $energy;
 		protected $skill = array();
 		
 		function __construct($userid){
 			$conn = openConn();
-			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,c.win,c.lose,c.draw,c.money,c.turn, ";
+			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,c.win,c.lose,c.draw,c.money,c.energy, ";
 			$sql .= "c.defense,c.accuracy,c.evasion,c.critical,";
 			$sql .= "cd.name as character_data_name ";
 			$sql .= "from tm_character c ";
@@ -107,7 +107,7 @@
 				$this->setLose($row['lose']);
 				$this->setDraw($row['draw']);
 				$this->setMoney($row['money']);
-				$this->setTurn($row['turn']);
+				$this->setEnergy($row['energy']);
 			}
 			
 			$sql  = "SELECT s.id,sd.damage+(sd.upgrade_damage*s.upgrade_count) as damage ";
@@ -250,12 +250,12 @@
 			return $this->skill;
 		}
 
-		function setTurn($str){
-			$this->turn = $str;
+		function setEnergy($str){
+			$this->energy = $str;
 		}
 		
-		function getTurn(){
-			return $this->turn;
+		function getEnergy(){
+			return $this->energy;
 		}
 
 		function setMoney($str){

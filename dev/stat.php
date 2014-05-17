@@ -15,7 +15,7 @@
 	closeConn($conn);
 	
 	if(isEmpty($userId) || isEmpty(getLoginSession())){
-		echo jsonError(ERROR_NO_SESSION);
+		echo jsonError($ERROR["NO_SESSION"]);
 	}else{
 		$user = new UserAccount($userId);
 		$char = new Character($userId);

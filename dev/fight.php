@@ -5,13 +5,13 @@
 	
 	if (isEmpty($attackerid) || isEmpty($defenderid) || $attackerid === $defenderid) {
 		if(isEmpty($attackerid)){
-			echo jsonError(ERROR_NO_SESSION);
+			echo jsonError($ERROR["NO_SESSION"]);
 		}elseif(isEmpty($defenderid)){
-			echo jsonError(ERROR_FIGHT, "No Enemy Selected");
+			echo jsonError($ERROR["FIGHT"], "No Enemy Selected");
 		}elseif($attackerid === $defenderid){
-			echo jsonError(ERROR_FIGHT, "Cannot Attack Yourself");
+			echo jsonError($ERROR["FIGHT"], "Cannot Attack Yourself");
 		}else{
-			echo jsonError(ERROR_FIGHT);
+			echo jsonError($ERROR["FIGHT"]);
 		}		
 	} else {
 		$battleLog = fight($attackerid,$defenderid);

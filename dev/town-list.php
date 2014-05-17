@@ -2,7 +2,7 @@
 	
 	$userId = getLoginSession();
 	if(isEmpty($userId)){
-		echo jsonError(ERROR_NO_SESSION);
+		echo jsonError($ERROR["NO_SESSION"]);
 	}else{
 		$response = townList($userId);
 		echo $response;

@@ -9,7 +9,7 @@
 	$tmi = $_GET["tmi"];
 	
 	if(isEmpty(getLoginSession()) && $tmi !== TMI_LOGIN){
-		echo jsonError(ERROR_NO_SESSION);
+		echo jsonError($ERROR["NO_SESSION"]);
 	}else if($tmi === TMI_LOGIN){
 		include "login.php";
 	}else if($tmi === TMI_LOGOUT){
@@ -21,6 +21,6 @@
 	}else if($tmi === TMI_UPGRADE_SKILL){
 		include "upgrade-skill.php";
 	}else{
-		echo jsonError(ERROR_NO_TMI);
+		echo jsonError($ERROR["NO_TMI"]);
 	}
 ?>
