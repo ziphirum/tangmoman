@@ -76,13 +76,14 @@
 		protected $draw;
 		protected $money;
 		protected $energy;
+		protected $lastConnectionTime;
 		protected $skill = array();
 		
 		function __construct($userid){
 			$conn = openConn();
 			$sql  = "SELECT c.id,c.name,c.hp,c.sp,c.max_hp,c.max_sp,c.win,c.lose,c.draw,c.money,c.energy, ";
 			$sql .= "c.defense,c.accuracy,c.evasion,c.critical,";
-			$sql .= "cd.name as character_data_name ";
+			$sql .= "cd.name as character_data_name,c.last_connection_time ";
 			$sql .= "from tm_character c ";
 			$sql .= "left join tm_character_data cd on cd.id = c.character_data_id ";
 			$sql .= "where c.useraccount_id=?";
@@ -108,6 +109,7 @@
 				$this->setDraw($row['draw']);
 				$this->setMoney($row['money']);
 				$this->setEnergy($row['energy']);
+				$this->setLastConnectionTime($row['last_connection_time']);
 			}
 			
 			$stmt->close();
@@ -266,6 +268,14 @@
 		
 		function getMoney(){
 			return $this->money;
+		}
+		
+		function setLastConnectionTime($str){
+			$this->lastConnectionTime = $str;
+		}
+		
+		function getLastConnectionTime(){
+			return $this->lastConnectionTime;
 		}
 
 		function updateFight($status){
