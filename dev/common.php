@@ -47,7 +47,7 @@
 	}
 	
 	function checkEnergy($obj){
-	echo $obj->getEnergy().' '.$amount
+	echo $obj->getEnergy().' '.$amount;
 		echo $obj->getEnergy()>=$amount;
 		return ($obj->getEnergy())>=$amount;
 	}
