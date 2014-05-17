@@ -11,7 +11,7 @@
 	if(isEmpty(getLoginSession()) && $tmi !== TMI_LOGIN){
 		echo jsonError($ERROR["NO_SESSION"]);
 	}else{
-		Character->updateConnectionTime(getLoginSession());
+		Character::updateConnectionTime(getLoginSession());
 		if($tmi === TMI_LOGIN){
 			include "login.php";
 		}else if($tmi === TMI_LOGOUT){
