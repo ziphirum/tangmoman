@@ -3,6 +3,7 @@
 	$attackerid = getLoginSession();
 	$defenderid = intval($_GET["target"]);
 	
+	echo $defenderid;
 	if (isEmpty($attackerid) || isEmpty($defenderid) || $attackerid === $defenderid) {
 		if(isEmpty($attackerid)){
 			echo jsonError($ERROR["NO_SESSION"]);
