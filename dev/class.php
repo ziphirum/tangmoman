@@ -370,11 +370,11 @@
 				$sql  = "select TIMESTAMPDIFF(MINUTE,last_connection_time, NOW()), energy ";
 				$sql .= "from tm_character ";
 				$sql .= "where useraccount_id=? ";
-				$stmt = $conn->prepare($sql);
-				$stmt->bind_param('i',$userid);
-				$stmt->execute();
-				$stmt->bind_result($minute,$energy);
-				$stmt->fetch();
+				$stmt1 = $conn->prepare($sql);
+				$stmt1->bind_param('i',$userid);
+				$stmt1->execute();
+				$stmt1->bind_result($minute,$energy);
+				$stmt1->fetch();
 				
 				$addEnergy += intval($minute/MINUTE_PER_ENERGY);
 				$addTime = $addEnergy*MINUTE_PER_ENERGY;
@@ -386,9 +386,9 @@
 				$updConnSQL .= "last_connection_time = TIMESTAMPADD(MINUTE,?,last_connection_time), energy = ? ";
 				$updConnSQL .= " WHERE id = ?";
 			
-				$stmt = $conn->prepare($updConnSQL);
-				$stmt->bind_param('iii',$addTime,$energy,$userid);
-				if($stmt->execute()){
+				$stmt2 = $conn->prepare($updConnSQL);
+				$stmt2->bind_param('iii',$addTime,$energy,$userid);
+				if($stmt2->execute()){
 					$retval = TRUE;
 				}
 				closeConn($conn);
